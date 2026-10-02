@@ -1,0 +1,51 @@
+/* =============================================================================
+   layout.css — Site Shell & Shared Layout Utilities
+   ============================================================================= */
+
+.site-shell {
+  overflow: clip;
+  background: var(--paper);
+  color: var(--ink);
+  text-align: left;
+}
+
+.site-shell h1,
+.site-shell h2,
+.site-shell h3 {
+  letter-spacing: 0;
+}
+
+/* Centred content wrapper used across most sections */
+.section-wrap,
+.header-inner {
+  width: min(1240px, calc(100% - 88px));
+  margin-inline: auto;
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* ── Responsive overrides ──────────────────────────────────────────────────── */
+
+@media (max-width: 1000px) {
+  .section-wrap,
+  .header-inner { width: min(calc(100% - 52px), 760px); }
+}
+
+@media (max-width: 700px) {
+  .section-wrap,
+  .header-inner { width: calc(100% - 40px); }
+}
+
+@media (max-width: 380px) {
+  .section-wrap,
+  .header-inner { width: calc(100% - 32px); }
+}

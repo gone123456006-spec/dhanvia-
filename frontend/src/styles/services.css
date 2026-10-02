@@ -1,0 +1,267 @@
+/* =============================================================================
+   services.css — Company Services Grid & Service Catalog (Tabbed Panel)
+   ============================================================================= */
+
+/* ── Section wrapper ───────────────────────────────────────────────────────── */
+
+.company-services {
+  background: #f3f7fc;
+  color: #194d68;
+}
+
+.company-services-inner {
+  width: min(1320px, calc(100% - 9%));
+  margin-inline: auto;
+  padding-block: 58px 28px;
+}
+
+.company-services-inner > h2 {
+  margin: 0;
+  color: #194d68;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.company-services-intro {
+  max-width: 560px;
+  margin: 10px auto 0;
+  color: #526682;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* ── Icon grid ─────────────────────────────────────────────────────────────── */
+
+.company-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
+  max-width: 760px;
+  gap: clamp(6px, .8vw, 10px);
+  margin: 28px auto 0;
+}
+
+.company-service-item {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.company-service-icon {
+  position: relative;
+  display: grid;
+  width: 68px;
+  height: 68px;
+  box-sizing: border-box;
+  place-items: center;
+  border: 1px solid #d7e3ee;
+  border-radius: 50%;
+  background: #e8f0f8;
+  color: #194d68;
+}
+
+/* Per-item colour accents */
+.company-service-item:nth-child(1) .company-service-icon { background: #ccefe1; color: #176b55; }
+.company-service-item:nth-child(2) .company-service-icon { background: #ffe8aa; color: #895b0a; }
+.company-service-item:nth-child(3) .company-service-icon { background: #cde5f8; color: #235d8a; }
+.company-service-item:nth-child(4) .company-service-icon { background: #ffd9d2; color: #974737; }
+
+.company-service-icon svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 38px;
+  height: 38px;
+}
+
+.company-service-item h3 {
+  margin: 0;
+  color: #194d68;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .88rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* ── Service Catalog ───────────────────────────────────────────────────────── */
+
+.service-catalog {
+  padding: 0 0 36px;
+  background: transparent;
+}
+
+.service-catalog-shell {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  width: min(1440px, calc(100% - 9%));
+  min-height: 320px;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid #dce2e9;
+  border-radius: 12px;
+  background: #f7f8fa;
+  box-shadow: 0 9px 20px rgba(20, 39, 62, .1);
+}
+
+/* Category sidebar */
+.service-category-list {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  background: #2b3d50;
+}
+
+.service-category {
+  min-height: 44px;
+  padding: 8px 13px;
+  border: 0;
+  background: transparent;
+  color: #d4dce5;
+  cursor: pointer;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+  transition: background-color .16s ease, color .16s ease;
+}
+
+.service-category:hover,
+.service-category:focus-visible { background: #354c63; color: #fff; }
+
+.service-category.active { background: #202c39; color: #fff; }
+
+/* Content panel */
+.service-catalog-content { min-width: 0; }
+
+.service-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.service-catalog-item {
+  display: flex;
+  min-width: 0;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px 6px 14px;
+  border-right: 1px solid #d5dae1;
+  border-bottom: 1px solid #d5dae1;
+  color: #526074;
+  font-size: .82rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.service-catalog-item > span { min-width: 0; }
+
+.service-catalog-item button {
+  min-width: 64px;
+  min-height: 30px;
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 6px;
+  background: #3182f6;
+  box-shadow: 0 2px 4px rgba(28, 92, 190, .22);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 700;
+  transition: background-color .16s ease, transform .16s ease;
+}
+
+.service-catalog-item button:hover {
+  background: #216cda;
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .company-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 28px;
+  }
+
+  .service-catalog-shell { grid-template-columns: 180px minmax(0, 1fr); }
+  .service-catalog-grid  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .company-services-inner {
+    width: calc(100% - 32px);
+    padding-block: 42px 22px;
+  }
+
+  .company-services-intro { font-size: .9rem; }
+
+  .company-services-grid {
+    grid-template-columns: repeat(4, minmax(56px, 1fr));
+    grid-auto-flow: unset;
+    align-items: start;
+    gap: 4px;
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: #194d68 #dce6f1;
+    scrollbar-width: thin;
+  }
+
+  .company-service-item  { gap: 6px; scroll-snap-align: start; }
+  .company-service-icon  { width: 52px; height: 52px; }
+  .company-service-icon svg { width: 32px; height: 32px; }
+  .company-service-item h3  { font-size: .76rem; font-weight: 800; }
+
+  .service-catalog { padding-bottom: 32px; }
+
+  .service-catalog-shell {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 32px);
+    min-height: 0;
+    border-radius: 14px;
+  }
+
+  .service-category-list {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-color: #8b9caf #2b3d50;
+    scrollbar-width: thin;
+  }
+
+  .service-category {
+    min-height: 44px;
+    flex: 0 0 auto;
+    padding: 12px 14px;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+
+  .service-catalog-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .service-catalog-item {
+    min-height: 48px;
+    padding: 6px 8px 6px 10px;
+    font-size: .8rem;
+  }
+
+  .service-catalog-item button {
+    min-width: 58px;
+    min-height: 36px;
+    padding-inline: 8px;
+    font-size: .78rem;
+  }
+}

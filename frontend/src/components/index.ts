@@ -1,0 +1,13 @@
+// ─── Components barrel ────────────────────────────────────────────────────────
+// Re-export all components so imports stay tidy: import { Brand } from '../components'
+
+export { Brand } from './Brand'
+export { CompanyServices } from './CompanyServices'
+export { FAQ } from './FAQ'
+export { HeroBanner } from './HeroBanner'
+export { ProcessIllustration } from './ProcessIllustration'
+export { RegistrationOffer, ServiceCatalog } from './RegistrationOfferAndCatalog'
+export { RegistrationProcess } from './RegistrationProcess'
+export { ServiceIcon } from './ServiceIcon'
+export { SiteFooter } from './SiteFooter'
+export { SiteHeader } from './SiteHeader'

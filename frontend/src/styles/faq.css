@@ -1,0 +1,94 @@
+/* =============================================================================
+   faq.css — Frequently Asked Questions Section
+   ============================================================================= */
+
+.faq {
+  padding-block: 58px 76px;
+  background: #f7fafc;
+}
+
+.faq-inner { max-width: 1120px; }
+
+.faq-title {
+  margin: 0;
+  color: #30343a;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.faq-list { margin-top: 52px; }
+
+/* Accordion items */
+.faq-list details {
+  border-bottom: 1px solid #d9e0e7;
+  background: #fff;
+}
+
+.faq-list details[open] { background: #fff; }
+
+.faq-list summary {
+  display: flex;
+  min-height: 66px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 0 24px;
+  background: #fff;
+  color: #30343a;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 500;
+  line-height: 1.4;
+  list-style: none;
+}
+
+.faq-list details[open] summary {
+  background: #ffecd5;
+  color: #704615;
+}
+
+/* Hide the default browser disclosure triangle */
+.faq-list summary::-webkit-details-marker { display: none; }
+
+/* +/× toggle icon */
+.faq-list summary span {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.faq-list summary span::before,
+.faq-list summary span::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  content: '';
+  transform: translate(-50%, -50%);
+}
+
+.faq-list summary span::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  transition: transform .16s ease;
+}
+
+.faq-list details[open] summary span::after {
+  transform: translate(-50%, -50%);
+}
+
+.faq-list details > p {
+  max-width: none;
+  margin: 0;
+  padding: 18px 24px 22px;
+  background: #fff;
+  color: #34383e;
+  font-size: 1rem;
+  line-height: 1.65;
+}

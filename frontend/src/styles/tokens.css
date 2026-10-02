@@ -1,0 +1,18 @@
+/* =============================================================================
+   tokens.css — Design Tokens
+   Global CSS custom properties: colours, typography, spacing.
+   ============================================================================= */
+
+:root {
+  /* Brand palette */
+  --ink:    #17382f;
+  --muted:  #718076;
+  --paper:  #fbfaf6;
+  --line:   #e5e4dc;
+  --green:  #164c3b;
+  --coral:  #f26b56;
+  --yellow: #f5d36e;
+
+  /* Typography */
+  --serif: 'Fraunces', Georgia, serif;
+}

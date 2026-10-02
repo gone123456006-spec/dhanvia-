@@ -1,0 +1,40 @@
+/* =============================================================================
+   hero.css — Hero Carousel (Image Banner)
+   ============================================================================= */
+
+/* Static variant — full-width image slider used on the Dhanvia page */
+.hero-carousel.hero-carousel--static {
+  display: block;
+  overflow: hidden;
+  height: auto;
+  aspect-ratio: auto;
+  background: #f5f7f6;
+}
+
+.hero-carousel--static .hero-carousel-track {
+  display: flex;
+  width: 400%;
+  flex: 0 0 auto;
+  transition: translate 850ms cubic-bezier(.7, 0, .25, 1);
+  will-change: transform;
+}
+
+.hero-banner-image {
+  display: block;
+  width: 25%;
+  flex: 0 0 25%;
+  height: auto;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .hero-banner-image {
+    height: calc(35.57vw + 10px);
+    object-fit: fill;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel--static .hero-carousel-track { transition: none; }
+}
