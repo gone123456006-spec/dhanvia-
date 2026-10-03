@@ -9,8 +9,10 @@ export function RegistrationProcess() {
   return (
     <section className="registration-process" aria-labelledby="registration-process-title">
       <div className="registration-process-inner">
-        <h2 id="registration-process-title">Registration</h2>
-        <h3 className="registration-process-subheading">In 4 Easy Steps</h3>
+        <div className="registration-process-header">
+          <h2 id="registration-process-title">Registration</h2>
+          <h3 className="registration-process-subheading">In 4 Easy Steps</h3>
+        </div>
         <p className="registration-process-description">
           From completing forms to receiving your certificate, our guided process keeps company registration
           clear, simple, and efficient.

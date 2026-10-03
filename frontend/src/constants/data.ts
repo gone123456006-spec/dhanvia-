@@ -124,6 +124,103 @@ export const registrationServiceCategories: ServiceCategory[] = [
   },
 ]
 
+export const complianceServiceCategories: ServiceCategory[] = [
+  {
+    category: 'Compliance Calendar',
+    services: ['Company Compliance Calendar', 'LLP Compliance Calendar', 'Annual Filing Calendar'],
+  },
+  {
+    category: 'Compliance',
+    services: [
+      'LLP Annual Compliance',
+      'Annual Compliance for Private Limited Company',
+      'Sole Proprietorship Compliance',
+      'Outsource Bookkeeping Services',
+      'Book Keeping and Accounting Services',
+      'Nidhi Company Compliance',
+      'NGO Compliance',
+      'Annual Compliance for Society',
+      'Annual Compliance for Partnership Firm',
+      'Form INC-20A',
+      'Trust Annual Compliance',
+      'Partnership Firm Tax Return Filing',
+    ],
+  },
+  {
+    category: 'MCA Services',
+    services: ['Company Name Approval', 'Director KYC', 'DIN Services', 'MCA Filing'],
+  },
+  {
+    category: 'Event Based Compliance',
+    services: ['Change in Directors', 'Change of Registered Office', 'Share Allotment', 'Increase in Authorized Capital'],
+  },
+  {
+    category: 'Convert Your Business',
+    services: ['Proprietorship to Private Limited', 'Partnership to LLP', 'Private Limited to LLP', 'LLP to Private Limited'],
+  },
+]
+
+export const iprServiceCategories: ServiceCategory[] = [
+  {
+    category: 'Trademark Registration',
+    services: [
+      'Trademark Registration',
+      'Trademark Renewal',
+      'Trademark Objection',
+      'Trademark Opposition',
+      'International Trademark Registration',
+      'Trademark Rectification',
+      'Trademark Hearing',
+      'Response to Trademark Objection',
+      'Trademark Infringement',
+      'Trademark Assignment',
+      'Wordmark Registration',
+    ],
+  },
+  {
+    category: 'Copyright Registration',
+    services: ['Copyright Registration', 'Copyright Renewal', 'Copyright Objection', 'Copyright Assignment'],
+  },
+  {
+    category: 'Patent Registration',
+    services: ['Patent Registration', 'Patent Search', 'Patent Application Filing', 'Patent Renewal'],
+  },
+  {
+    category: 'Design Registration',
+    services: ['Design Registration', 'Design Renewal', 'Design Objection'],
+  },
+  {
+    category: 'Intellectual Property Dispute',
+    services: ['Trademark Infringement', 'IPR Legal Notice', 'IP Opposition', 'IP Dispute Resolution'],
+  },
+]
+
+export const taxationServiceCategories: ServiceCategory[] = [
+  {
+    category: 'Income Tax',
+    services: [
+      'Income Tax Return Filing',
+      'TDS Return Filing',
+      'PF Return',
+      'ITR 2 Form Filing',
+      'ITR 7 Form Filing',
+      'ITR 1 Form Filing',
+      '80-IAC Tax Exemption for Startups',
+    ],
+  },
+  {
+    category: 'GST',
+    services: ['GST Registration', 'GST Return Filing', 'GST Annual Return Filing', 'GST Notice Reply', 'GST Refund Filing'],
+  },
+]
+
+export const serviceMegaMenus = [
+  { label: 'Registrations', href: '#registration-process-title', categories: registrationServiceCategories },
+  { label: 'Compliance', href: '#company-services-title', categories: complianceServiceCategories, defaultCategory: 'Compliance' },
+  { label: 'IPR', href: '#service-catalog', categories: iprServiceCategories },
+  { label: 'Taxation', href: '#service-catalog', categories: taxationServiceCategories },
+]
+
 export const selectableRegistrationServices = Array.from(
-  new Set(registrationServiceCategories.flatMap(({ services }) => services)),
+  new Set(serviceMegaMenus.flatMap(({ categories }) => categories.flatMap(({ services }) => services))),
 )

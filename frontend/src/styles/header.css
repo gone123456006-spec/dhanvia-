@@ -55,10 +55,101 @@
 
 /* ── Navigation ────────────────────────────────────────────────────────────── */
 
-.main-nav { gap: 35px; }
+.main-nav { gap: 30px; }
 
-.main-nav a { color: #161a20; font-size: 14px; font-weight: 700; text-decoration: none; }
+.main-nav a { color: #161a20; font-size: 19px; font-weight: 700; text-decoration: none; }
 .main-nav a:hover { color: #0751b5; }
+
+.registration-nav-item {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.registration-mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 6;
+  width: min(1000px, calc(100vw - 36px));
+  padding-top: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity .18s ease, transform .18s ease;
+  visibility: hidden;
+}
+
+.registration-nav-item:hover .registration-mega-menu,
+.registration-nav-item:focus-within .registration-mega-menu,
+.registration-nav-item.is-open .registration-mega-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+
+.registration-mega-menu-inner {
+  display: grid;
+  grid-template-columns: minmax(240px, 26%) minmax(0, 1fr);
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(25, 38, 57, .16);
+}
+
+.registration-mega-categories {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  border-right: 1px solid #e5e7eb;
+  background: #f7f8fa;
+}
+
+.registration-mega-categories button,
+.registration-mega-services button {
+  border: 0;
+  background: transparent;
+  color: #383838;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.registration-mega-categories button {
+  min-height: 40px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.registration-mega-categories button:hover,
+.registration-mega-categories button.active {
+  background: #f39816;
+  color: #fff;
+}
+
+.registration-mega-services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 0 16px;
+  padding: 14px 20px;
+}
+
+.registration-mega-services button {
+  min-height: 48px;
+  padding: 8px 4px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.registration-mega-services button:hover,
+.registration-mega-services button:focus-visible {
+  color: #e8890e;
+}
 
 .header-actions { gap: 23px; }
 
@@ -110,9 +201,12 @@
 /* ── Responsive ────────────────────────────────────────────────────────────── */
 
 @media (max-width: 1000px) {
-  .main-nav { gap: 19px; }
-  .main-nav a { font-size: 11px; }
+  .main-nav { gap: 16px; }
+  .main-nav a { font-size: 17px; }
   .header-actions { gap: 13px; }
+
+  .registration-mega-menu-inner { grid-template-columns: minmax(190px, 29%) minmax(0, 1fr); }
+  .registration-mega-services { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; padding-inline: 22px; }
 }
 
 @media (max-width: 850px) {
@@ -171,10 +265,62 @@
   .main-nav a {
     padding: 13px 0;
     border-bottom: 1px solid var(--line);
-    font-size: 13px;
+    font-size: 17px;
   }
 
   .main-nav a:last-child { border: 0; }
+
+  .registration-nav-item { display: block; height: auto; }
+  .registration-nav-item > a { display: block; }
+
+  .registration-mega-menu,
+  .registration-nav-item:hover .registration-mega-menu,
+  .registration-nav-item:focus-within .registration-mega-menu,
+  .registration-nav-item.is-open .registration-mega-menu {
+    position: static;
+    display: none;
+    width: auto;
+    padding: 0;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    visibility: visible;
+  }
+
+  .registration-nav-item.is-open .registration-mega-menu { display: block; }
+
+  .registration-mega-menu-inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    margin: 0 0 12px;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .registration-mega-categories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0;
+    border-right: 0;
+  }
+
+  .registration-mega-categories button {
+    min-height: 42px;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .registration-mega-services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 10px;
+    padding: 10px 14px;
+  }
+
+  .registration-mega-services button {
+    min-height: 42px;
+    padding: 8px 0;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 700px) {

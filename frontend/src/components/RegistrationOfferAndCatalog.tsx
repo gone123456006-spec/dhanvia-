@@ -32,6 +32,7 @@ export function RegistrationOffer({ selectedService, onServiceChange }: Registra
               <li><span aria-hidden="true" />Company name approval and reservation</li>
               <li><span aria-hidden="true" />MCA SPICe+ incorporation filing</li>
               <li><span aria-hidden="true" />Corporate Identification Number (CIN) allotment</li>
+              <li><span aria-hidden="true" />Post-incorporation compliance guidance</li>
             </ul>
           </div>
 
@@ -133,7 +134,7 @@ export function ServiceCatalog({ onApply }: ServiceCatalogProps) {
   }
 
   return (
-    <section className="service-catalog" aria-label="Browse business services">
+    <section className="service-catalog" id="service-catalog" aria-label="Browse business services">
       <div className="service-catalog-shell">
         <nav className="service-category-list" role="tablist" aria-label="Service categories">
           {registrationServiceCategories.map(({ category }) => (

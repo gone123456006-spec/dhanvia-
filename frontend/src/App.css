@@ -19,11 +19,17 @@
 /* 5. Registration process, offer, and form */
 @import './styles/registration.css';
 
-/* 6. Company services grid & service catalog */
+/* 6. Company registration detail page */
+@import './styles/registration-detail.css';
+
+/* 7. Company services grid & service catalog */
 @import './styles/services.css';
 
-/* 7. FAQ accordion */
+/* 8. FAQ accordion */
 @import './styles/faq.css';
 
 /* 8. Footer */
+@import './styles/consultation.css';
+
+/* 9. Footer */
 @import './styles/footer.css';

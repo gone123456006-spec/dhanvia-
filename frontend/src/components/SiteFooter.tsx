@@ -4,12 +4,18 @@ import { Brand } from './Brand'
  * SiteFooter
  * Page footer containing brand info, navigation links, and contact details.
  */
-export function SiteFooter() {
+interface SiteFooterProps {
+  isContactPage: boolean
+}
+
+export function SiteFooter({ isContactPage }: SiteFooterProps) {
+  const homeAnchor = (anchor: string) => `${isContactPage ? '/' : ''}${anchor}`
+
   return (
     <footer className="footer" id="contact">
       <div className="footer-main section-wrap">
         <div className="footer-brand">
-          <Brand />
+          <Brand homeHref={isContactPage ? '/' : '#top'} />
           <p>
             Everyday money,<br />with a little more heart.
           </p>
@@ -24,9 +30,9 @@ export function SiteFooter() {
 
         <nav className="footer-company-links" aria-label="Company links">
           <h3>Company</h3>
-          <a href="#registration-process-title">Registration Process</a>
-          <a href="#company-services-title">Our Services</a>
-          <a href="#faq">Help &amp; Support</a>
+          <a href={homeAnchor('#registration-process-title')}>Registration Process</a>
+          <a href={homeAnchor('#company-services-title')}>Our Services</a>
+          <a href={homeAnchor('#faq')}>Help &amp; Support</a>
         </nav>
 
         <div className="footer-contact-details">
@@ -41,9 +47,9 @@ export function SiteFooter() {
       <div className="footer-bottom section-wrap">
         <span>© 2026 Dhanvia. All rights reserved.</span>
         <nav aria-label="Legal links">
-          <a href="#faq">Privacy Policy</a>
-          <a href="#faq">Account Delete Policy</a>
-          <a href="#faq">Terms of Service</a>
+          <a href={homeAnchor('#faq')}>Privacy Policy</a>
+          <a href={homeAnchor('#faq')}>Account Delete Policy</a>
+          <a href={homeAnchor('#faq')}>Terms of Service</a>
         </nav>
       </div>
     </footer>
