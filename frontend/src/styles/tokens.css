@@ -12,6 +12,10 @@
   --green:  #164c3b;
   --coral:  #f26b56;
   --yellow: #f5d36e;
+  --button: #00bf63;
+  --button-hover: #00a957;
+  --button-text: #0b0b0b;
+  --nav-bg: #00bf63;
 
   /* Typography */
   --serif: 'Fraunces', Georgia, serif;

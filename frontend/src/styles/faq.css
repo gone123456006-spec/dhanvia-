@@ -47,8 +47,8 @@
 }
 
 .faq-list details[open] summary {
-  background: #ffecd5;
-  color: #704615;
+  background: #d9f6e7;
+  color: #00673a;
 }
 
 /* Hide the default browser disclosure triangle */

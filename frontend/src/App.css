@@ -25,6 +25,9 @@
 /* 7. Company services grid & service catalog */
 @import './styles/services.css';
 
+/* 8. Client testimonials */
+@import './styles/testimonials.css';
+
 /* 8. FAQ accordion */
 @import './styles/faq.css';
 
@@ -33,3 +36,6 @@
 
 /* 9. Footer */
 @import './styles/footer.css';
+
+/* 10. Intro splash, entrance and scroll animations */
+@import './styles/motion.css';

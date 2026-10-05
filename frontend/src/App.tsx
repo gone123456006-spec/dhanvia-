@@ -1,17 +1,32 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
+  ClientTestimonials,
   CompanyServices,
   ConsultationPage,
   FAQ,
   HeroBanner,
+  IntroSplash,
   RegistrationDetailPage,
   RegistrationOffer,
   RegistrationProcess,
+  ScrollProgress,
   ServiceCatalog,
   SiteFooter,
   SiteHeader,
 } from './components'
 import { registrationServiceCategories } from './constants/data'
+import { useScrollReveal } from './hooks/useScrollReveal'
+
+const INTRO_SEEN_KEY = 'dhanvia-intro-seen'
+
+function shouldPlayIntro() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
+  try {
+    return sessionStorage.getItem(INTRO_SEEN_KEY) !== '1'
+  } catch {
+    return false
+  }
+}
 
 /**
  * App
@@ -26,6 +41,22 @@ function App() {
     sessionStorage.removeItem('selectedRegistrationService')
     return selectedService
   })
+  const [showIntro, setShowIntro] = useState(shouldPlayIntro)
+  const [entered, setEntered] = useState(() => !showIntro)
+  const handleIntroReveal = useCallback(() => setEntered(true), [])
+  const handleIntroDone = useCallback(() => setShowIntro(false), [])
+
+  useEffect(() => {
+    if (!showIntro) return
+    try {
+      sessionStorage.setItem(INTRO_SEEN_KEY, '1')
+    } catch {
+      // Storage can be blocked; the intro simply plays again next load.
+    }
+  }, [showIntro])
+
+  useScrollReveal(entered)
+
   const currentPath = window.location.pathname.replace(/\/$/, '')
   const isContactPage = currentPath === '/contact'
   const isRegistrationPage = currentPath === '/company-registration' || currentPath === '/registration-details'
@@ -63,7 +94,9 @@ function App() {
   }
 
   return (
-    <div className="site-shell" id="top">
+    <div className={`site-shell${entered ? ' is-entered' : ''}`} id="top">
+      {showIntro && <IntroSplash onReveal={handleIntroReveal} onDone={handleIntroDone} />}
+      <ScrollProgress />
       <SiteHeader
         onSelectService={handleRegistrationServiceSelect}
         isContactPage={isContactPage}
@@ -93,6 +126,8 @@ function App() {
               <CompanyServices />
               <ServiceCatalog onApply={handleServiceCatalogApply} />
             </section>
+
+            <ClientTestimonials />
 
             <FAQ />
           </>

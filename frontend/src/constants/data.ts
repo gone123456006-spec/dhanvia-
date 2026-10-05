@@ -21,6 +21,22 @@ export const questions: [string, string][] = [
     'Does a private limited company have continuous existence?',
     'Yes. A private limited company is a separate legal entity with perpetual succession, so it continues to exist despite changes in its directors or shareholders.',
   ],
+  [
+    'What is included in the Rs.1,999/- company registration package?',
+    'The package covers DIN and DSC for two directors, name approval, drafting of MoA and AoA, MCA SPICe+ filing, registration fees and stamp duty, the Certificate of Incorporation with CIN, company PAN and TAN, and post-incorporation compliance guidance.',
+  ],
+  [
+    'How many people are needed to start a private limited company?',
+    'You need a minimum of two directors and two shareholders, and the same people can hold both roles. At least one director must be a resident of India. There is no minimum paid-up capital requirement.',
+  ],
+  [
+    'What compliances does a company need to follow after registration?',
+    'After incorporation, a company must open a bank account, file the commencement of business declaration, appoint an auditor, hold board meetings, and file annual returns and financial statements with the MCA along with income tax returns. Our team can manage these filings for you.',
+  ],
+  [
+    'Apart from company registration, what other services does Dhanvia offer?',
+    'Dhanvia also helps with GST, trademark and other business registrations, tax and compliance filings, mutual fund investments, home, personal and business loans, and insurance plans, so you can manage your business and personal finances in one place.',
+  ],
 ]
 
 // ─── Hero Banner ─────────────────────────────────────────────────────────────

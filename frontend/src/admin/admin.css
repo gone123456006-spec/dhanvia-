@@ -15,6 +15,9 @@
   --crm-brand-600: #0f3a2c;
   --crm-brand-50: #e8f0eb;
   --crm-accent: #f26b56;
+  --crm-button: #00bf63;
+  --crm-button-hover: #00a957;
+  --crm-button-text: #0b0b0b;
   --crm-highlight: #f5d36e;
   --crm-sidebar: #12352a;
   --crm-sidebar-2: #1c4637;
@@ -189,8 +192,8 @@ button:disabled { cursor: not-allowed; }
 .crm-btn-sm { height: 30px; padding: 0 10px; font-size: 12.5px; gap: 5px; }
 .crm-btn-block { width: 100%; }
 .crm-btn:disabled { opacity: .55; }
-.crm-btn-primary { background: var(--crm-brand); color: #fff; }
-.crm-btn-primary:hover:not(:disabled) { background: var(--crm-brand-600); }
+.crm-btn-primary { background: var(--crm-button); color: var(--crm-button-text); }
+.crm-btn-primary:hover:not(:disabled) { background: var(--crm-button-hover); }
 .crm-btn-secondary { background: #fff; border-color: var(--crm-border-strong); color: var(--crm-text); box-shadow: var(--crm-shadow); }
 .crm-btn-secondary:hover:not(:disabled) { background: var(--crm-surface-2); }
 .crm-btn-ghost { background: transparent; color: var(--crm-text-2); }
