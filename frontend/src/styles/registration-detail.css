@@ -167,8 +167,8 @@
   margin-top: 18px;
   border: 0;
   border-radius: 10px;
-  background: linear-gradient(100deg, #ff873d, #ffa322);
-  color: #fff;
+  background: var(--button);
+  color: var(--button-text);
   cursor: pointer;
   font: inherit;
   font-weight: 800;
@@ -224,8 +224,8 @@
 }
 
 .registration-detail-tabs button.active {
-  background: #ff9f1c;
-  color: #fff;
+  background: var(--button);
+  color: var(--button-text);
 }
 
 .registration-detail-article {

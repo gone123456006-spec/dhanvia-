@@ -1,0 +1,112 @@
+/* =============================================================================
+   service-directory.css — Crawlable service and category index
+   ============================================================================= */
+
+.service-directory {
+  background: #fff;
+  color: #111;
+}
+
+.service-directory-intro {
+  padding: 54px max(5%, calc((100% - 1200px) / 2)) 48px;
+  background: var(--paper);
+}
+
+.service-directory-eyebrow {
+  margin: 0 0 10px;
+  color: var(--green);
+  font-size: .85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.service-directory-intro h1 {
+  max-width: 900px;
+  margin: 0;
+  color: #111;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.12;
+}
+
+.service-directory-intro > p:last-child {
+  max-width: 800px;
+  margin: 16px 0 0;
+  color: #39463e;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.service-directory-group {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  padding-block: 34px;
+  border-bottom: 1px solid var(--line);
+}
+
+.service-directory-group h2 {
+  margin: 0 0 22px;
+  color: var(--green);
+  font-size: 1.65rem;
+}
+
+.service-directory-group > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 36px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-directory-group > ul > li {
+  min-width: 0;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.service-directory-group h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.service-directory-group h3 a {
+  color: #111;
+  text-decoration-color: #9eb5a5;
+  text-underline-offset: 3px;
+}
+
+.service-directory-group h3 a:hover,
+.service-directory-group h3 a:focus-visible { color: var(--green); }
+
+.service-directory-group li p {
+  margin: 9px 0 0;
+  color: #414b44;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.service-directory-group .service-directory-list-label {
+  color: var(--green);
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.service-directory-services {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px 14px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: #111;
+  font-size: .82rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 680px) {
+  .service-directory-intro { padding: 38px 20px 34px; }
+  .service-directory-group { width: calc(100% - 40px); padding-block: 28px; }
+  .service-directory-group > ul,
+  .service-directory-services { grid-template-columns: 1fr; }
+  .service-directory-group > ul { gap: 0; }
+}

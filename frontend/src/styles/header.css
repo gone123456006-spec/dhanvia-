@@ -2,6 +2,8 @@
    header.css — Site Header & Navigation
    ============================================================================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
+
 .site-header,
 .site-header .main-nav,
 .site-header a,
@@ -12,9 +14,8 @@
   top: 0;
   z-index: 5;
   height: 72px;
-  border-bottom: 1px solid rgba(23, 56, 47, .09);
-  background: var(--paper);
-  border-color: #e7e9ed;
+  border-bottom: 1px solid var(--button-hover);
+  background: var(--nav-bg);
   color: #121820;
 }
 
@@ -32,25 +33,37 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   color: #101820;
-  font-size: 22px;
-  font-weight: 700;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
   text-decoration: none;
+  line-height: 1;
 }
 
-.brand-mark {
-  display: grid;
-  width: 29px;
-  height: 29px;
-  place-items: center;
-  border-radius: 9px 9px 9px 3px;
-  background: #073b92;
-  color: white;
-  font-family: var(--serif);
-  font-size: 21px;
+.brand-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.brand-wordmark {
+  display: inline-block;
+  font-size: clamp(2.25rem, 2.8vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.065em;
+  transform: translateY(-1px);
+}
+
+.brand-tagline {
+  display: inline-block;
+  color: #0b3d24;
+  font-size: .5rem;
   font-weight: 600;
-  transform: rotate(-7deg);
+  letter-spacing: 0.09em;
+  text-transform: none;
+  transform: translateY(-2px);
+  text-align: center;
+  width: 100%;
 }
 
 /* ── Navigation ────────────────────────────────────────────────────────────── */
@@ -58,7 +71,9 @@
 .main-nav { gap: 30px; }
 
 .main-nav a { color: #161a20; font-size: 19px; font-weight: 700; text-decoration: none; }
-.main-nav a:hover { color: #0751b5; }
+.main-nav a:hover { color: #fff; }
+
+.nav-link-icon { display: none; }
 
 .registration-nav-item {
   display: flex;
@@ -127,8 +142,8 @@
 
 .registration-mega-categories button:hover,
 .registration-mega-categories button.active {
-  background: #f39816;
-  color: #fff;
+  background: var(--button);
+  color: var(--button-text);
 }
 
 .registration-mega-services {
@@ -151,48 +166,68 @@
   color: #e8890e;
 }
 
+.registration-category-guide-link {
+  display: block;
+  padding: 10px 18px;
+  border-top: 1px solid #e5e7eb;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .header-actions { gap: 23px; }
+
+.header-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-icon {
+  position: relative;
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  border: 3px solid #121820;
+  border-radius: 50%;
+}
+
+.search-handle {
+  position: absolute;
+  right: -6px;
+  bottom: -3px;
+  width: 10px;
+  height: 3px;
+  border-radius: 0;
+  background: #121820;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
 
 /* ── CTA button ────────────────────────────────────────────────────────────── */
 
 .talk-button {
-  position: relative;
   display: inline-flex;
   height: 40px;
   min-height: 40px;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  isolation: isolate;
   padding: 0 25px;
   border-radius: 18px;
-  background: #073b92;
+  background: #0b0b0b;
   color: #fff;
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
 }
-
-.talk-label { position: relative; z-index: 1; }
-
-.talk-accent {
-  position: absolute;
-  z-index: 0;
-  right: 0;
-  bottom: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #2bd5d4;
-  pointer-events: none;
-  transform: scale(1);
-  transform-origin: right bottom;
-  transition: transform .55s cubic-bezier(.2, .75, .25, 1);
-}
-
-.talk-button:hover .talk-accent,
-.talk-button:focus-visible .talk-accent { transform: scale(8); }
 
 /* ── Hamburger toggle ──────────────────────────────────────────────────────── */
 
@@ -212,66 +247,163 @@
 @media (max-width: 850px) {
   .site-header { height: 64px; }
 
+  .header-inner {
+    gap: 10px;
+    padding: 0 12px;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .brand-wordmark {
+    font-size: clamp(1.7rem, 5.4vw, 2.1rem);
+  }
+
+  .brand-tagline {
+    font-size: .38rem;
+    letter-spacing: 0.06em;
+  }
+
   .menu-toggle {
     display: flex;
-    width: 35px;
-    height: 35px;
+    width: 34px;
+    height: 34px;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    gap: 3px;
+    gap: 4px;
     order: 3;
+    flex-shrink: 0;
     padding: 0;
-    border: 1px solid var(--line);
-    border-color: #d9dfe8;
-    border-radius: 4px;
+    border: 0;
+    border-radius: 0;
     background: transparent;
     cursor: pointer;
+    margin-left: 0;
   }
 
   .menu-toggle span {
-    width: 16px;
-    height: 2px;
-    border-radius: 2px;
-    background: #073b92;
+    width: 20px;
+    height: 3px;
+    border-radius: 0;
+    background: #121820;
+    transition: transform .2s ease, opacity .2s ease;
+    transform-origin: center;
   }
 
-  .menu-toggle span:first-child { width: 13px; transform: rotate(-8deg); }
-  .menu-toggle span:last-child  { width: 13px; transform: rotate(8deg); }
+  .menu-toggle span:first-child,
+  .menu-toggle span:last-child {
+    width: 20px;
+    transform: none;
+  }
+
+  .menu-toggle.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
 
   .header-actions {
     order: 2;
-    gap: 14px;
+    gap: 7px;
     margin-left: auto;
-    margin-right: 14px;
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+
+  .talk-button {
+    display: inline-flex;
+    height: 30px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .header-search {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+  }
+
+  .search-icon {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+
+  .search-handle {
+    width: 7px;
+    height: 2px;
+    right: -4px;
+    bottom: -2px;
   }
 
   .main-nav {
-    position: absolute;
-    top: 64px;
+    position: fixed;
+    top: 0;
     right: 0;
-    left: 0;
-    display: none;
+    left: auto;
+    z-index: 30;
+    display: flex;
+    width: min(92vw, 430px);
+    height: 100vh;
     align-items: stretch;
     flex-direction: column;
     gap: 0;
-    padding: 9px 20px 17px;
-    border-bottom: 1px solid var(--line);
-    background: var(--paper);
+    padding: 16px 18px 20px;
+    border-bottom: 0;
+    background: rgba(243, 245, 241, 0.98);
+    box-shadow: -14px 0 28px rgba(14, 22, 35, 0.12);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(110%);
+    transition: transform .28s ease, opacity .28s ease;
   }
 
-  .main-nav.is-open { display: flex; }
+  .main-nav.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
 
   .main-nav a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
     padding: 13px 0;
     border-bottom: 1px solid var(--line);
     font-size: 17px;
   }
 
+  .nav-link-icon {
+    display: block;
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+  }
+
+  .main-nav a:hover { color: var(--button-hover); }
   .main-nav a:last-child { border: 0; }
 
   .registration-nav-item { display: block; height: auto; }
-  .registration-nav-item > a { display: block; }
+  .registration-nav-item > a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
 
   .registration-mega-menu,
   .registration-nav-item:hover .registration-mega-menu,
@@ -310,6 +442,11 @@
     font-size: 14px;
   }
 
+  .registration-category-guide-link {
+    grid-column: 1 / -1;
+    padding: 12px 10px;
+  }
+
   .registration-mega-services {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0 10px;
@@ -329,5 +466,4 @@
   .brand { font-size: 19px; }
   .header-actions { gap: 8px; margin-left: auto; margin-right: 10px; }
   .talk-button { height: 34px; min-height: 34px; padding-inline: 17px; font-size: 13px; }
-  .talk-accent { width: 20px; height: 20px; }
 }

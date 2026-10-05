@@ -1,6 +1,27 @@
 import { useRef, useState } from 'react'
 import { serviceMegaMenus } from '../constants/data'
+import { getServiceCategoryPath } from '../constants/serviceCategoryPages'
 import { Brand } from './Brand'
+
+type NavigationIconName = 'home' | 'registration' | 'compliance' | 'ipr' | 'taxation' | 'services' | 'contact'
+
+const navigationIconPaths: Record<NavigationIconName, string[]> = {
+  home: ['M3 10.5 12 3l9 7.5', 'M5.5 9v11h13V9', 'M9.5 20v-6h5v6'],
+  registration: ['M6 3h9l4 4v14H6z', 'M14 3v5h5', 'M9 12h6', 'M9 16h6'],
+  compliance: ['M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z', 'm9 12 2 2 4-4'],
+  ipr: ['M9 18h6', 'M10 21h4', 'M8.5 14.5a6 6 0 1 1 7 0c-.8.6-1.2 1.5-1.3 2.5h-4.4c-.1-1-.5-1.9-1.3-2.5Z', 'M12 6v4', 'M10 8h4'],
+  taxation: ['M5 3h14v18H5z', 'M8 7h8', 'M8 11h2', 'M14 11h2', 'M8 15h2', 'M14 15h2', 'M8 18h8'],
+  services: ['M3 8h18v12H3z', 'M8 8V5h8v3', 'M3 13h18', 'M10 13v2h4v-2'],
+  contact: ['M5 4h4l2 5-2.5 1.5a15 15 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z'],
+}
+
+function NavigationIcon({ name }: { name: NavigationIconName }) {
+  return (
+    <svg className="nav-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {navigationIconPaths[name].map((path) => <path d={path} key={path} />)}
+    </svg>
+  )
+}
 
 interface SiteHeaderProps {
   onSelectService: (service: string, menu: string, category: string) => void
@@ -69,7 +90,7 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
         <Brand />
 
         <button
-          className="menu-toggle"
+          className={menuOpen ? 'menu-toggle is-open' : 'menu-toggle'}
           type="button"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
@@ -79,7 +100,10 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
         </button>
 
         <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
-          <a href={isContactPage ? '/' : '#top'} onClick={closeMenu}>Home</a>
+          <a href="/" onClick={closeMenu}>
+            <NavigationIcon name="home" />
+            <span>Home</span>
+          </a>
           {serviceMegaMenus.map(({ label, href, categories }) => {
             const activeCategory = categories.find(
               ({ category }) => category === activeCategories[label],
@@ -97,7 +121,8 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
                   aria-haspopup="true"
                   onClick={(event) => handleMegaMenuClick(event, label)}
                 >
-                  {label}
+                  <NavigationIcon name={label === 'Registrations' ? 'registration' : label.toLowerCase() as NavigationIconName} />
+                  <span>{label}</span>
                 </a>
                 <div className="registration-mega-menu">
                   <div className="registration-mega-menu-inner">
@@ -113,6 +138,13 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
                           {category}
                         </button>
                       ))}
+                      <a
+                        className="registration-category-guide-link"
+                        href={getServiceCategoryPath(label, activeCategory.category)}
+                        onClick={closeMenu}
+                      >
+                        View {activeCategory.category} guide
+                      </a>
                     </nav>
                     <div className="registration-mega-services" aria-label={activeCategory.category}>
                       {activeCategory.services.map((service) => (
@@ -130,14 +162,19 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
               </div>
             )
           })}
-          <a href={isContactPage ? '/#company-services-title' : '#company-services-title'} onClick={closeMenu}>Services</a>
-          <a href="/contact" onClick={closeMenu}>Contact Us</a>
+          <a href="/services" onClick={closeMenu}>
+            <NavigationIcon name="services" />
+            <span>Services</span>
+          </a>
+          <a href="/contact" onClick={closeMenu}>
+            <NavigationIcon name="contact" />
+            <span>Contact Us</span>
+          </a>
         </nav>
 
         <div className="header-actions">
           <a className="talk-button" href="/contact">
-            <span className="talk-label">Let's Talk</span>
-            <span className="talk-accent" aria-hidden="true" />
+            Let's Talk
           </a>
         </div>
       </div>

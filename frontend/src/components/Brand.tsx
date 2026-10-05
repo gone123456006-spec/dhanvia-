@@ -6,11 +6,13 @@ interface BrandProps {
   homeHref?: string
 }
 
-export function Brand({ homeHref = '#top' }: BrandProps) {
+export function Brand({ homeHref = '/' }: BrandProps) {
   return (
     <a className="brand" href={homeHref} aria-label="Dhanvia home">
-      <span className="brand-mark" aria-hidden="true">d</span>
-      <span>dhanvia</span>
+      <span className="brand-stack">
+        <span className="brand-wordmark">Dhanvia</span>
+        <span className="brand-tagline">Funding your next move.</span>
+      </span>
     </a>
   )
 }

@@ -1,4 +1,4 @@
-import type { RegistrationCategoryGuide } from './registrationCategoryGuides'
+import type { RegistrationCategoryGuide } from './registrationCategoryGuides.js'
 
 export const complianceCategoryGuides: Record<string, RegistrationCategoryGuide> = {
   'Compliance Calendar': {

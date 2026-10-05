@@ -203,9 +203,9 @@
   min-height: 50px;
   border: 0;
   border-radius: 10px;
-  background: #ff9f1c;
-  box-shadow: 0 5px 10px rgba(232, 130, 18, .25);
-  color: #fff;
+  background: var(--button);
+  box-shadow: 0 5px 10px rgba(0, 191, 99, .25);
+  color: var(--button-text);
   cursor: pointer;
   font: inherit;
   font-size: 1rem;
@@ -214,7 +214,7 @@
 }
 
 .support-request-form > button:hover {
-  background: #ed8d0d;
+  background: var(--button-hover);
   transform: translateY(-1px);
 }
 

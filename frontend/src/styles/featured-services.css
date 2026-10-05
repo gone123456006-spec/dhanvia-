@@ -1,0 +1,125 @@
+/* =============================================================================
+   featured-services.css — Mutual funds, loans, and insurance cards
+   ============================================================================= */
+
+.featured-money-services {
+  padding-block: 56px 64px;
+  background: #e7f6f4;
+  color: #183a49;
+}
+
+.featured-money-services-inner {
+  width: min(1320px, calc(100% - 9%));
+  margin-inline: auto;
+}
+
+.featured-money-services-heading {
+  max-width: 720px;
+  margin-bottom: 26px;
+}
+
+.featured-money-services-heading h2 {
+  margin: 0;
+  color: #194d68;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.featured-money-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.featured-money-service {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #d2e8e5;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(23, 71, 78, .07);
+}
+
+.featured-money-service > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.72;
+  object-fit: cover;
+  object-position: 10% center;
+}
+
+.featured-money-service-content {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 20px 21px 22px;
+  transition: background-color .2s ease;
+}
+
+.featured-money-service:hover .featured-money-service-content,
+.featured-money-service:focus-within .featured-money-service-content {
+  background: #f58235;
+}
+
+.featured-money-service h3 {
+  margin: 0;
+  color: #101f36;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.featured-money-service p {
+  margin: 12px 0 20px;
+  color: #64717a;
+  font-size: .95rem;
+  line-height: 1.55;
+  transition: color .2s ease;
+}
+
+.featured-money-service:hover p,
+.featured-money-service:focus-within p { color: #fff; }
+
+.featured-money-service a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  color: #078e9a;
+  font-size: .92rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.featured-money-service:hover a,
+.featured-money-service:focus-within a { color: #13243e; }
+
+.featured-money-service a::after {
+  content: '→';
+  font-size: 1.1rem;
+  transition: transform .18s ease;
+}
+
+.featured-money-service a:hover::after { transform: translateX(3px); }
+
+@media (max-width: 900px) {
+  .featured-money-services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .featured-money-services { padding-block: 40px 46px; }
+  .featured-money-services-inner { width: calc(100% - 36px); }
+  .featured-money-services-heading { margin-bottom: 20px; }
+  .featured-money-services-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .featured-money-service > img { aspect-ratio: 1.8; }
+  .featured-money-service-content { padding: 17px 18px 19px; }
+  .featured-money-service h3 { font-size: 1.2rem; }
+  .featured-money-service p { margin-block: 9px 15px; font-size: .9rem; }
+}
