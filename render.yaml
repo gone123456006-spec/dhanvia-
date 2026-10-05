@@ -1,13 +1,14 @@
 # Render Blueprint: Dashboard > New > Blueprint > select this repo.
+# One web service serves the API (and a copy of the website). The public site is on Vercel,
+# which forwards /api/* here (see vercel.json).
 services:
   - type: web
-    name: dhanvia-api
+    name: dhanvia-webapi
     runtime: node
     region: singapore
-    plan: starter
-    rootDir: backend
-    buildCommand: npm ci --include=dev && npm run build
-    startCommand: node --enable-source-maps dist/server.js
+    plan: free
+    buildCommand: npm ci --include=dev && npm --prefix backend ci --include=dev && npm run build:all
+    startCommand: npm start
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:
@@ -19,17 +20,18 @@ services:
         sync: false
       - key: MONGODB_DB_NAME
         value: dhanvia
-      # The frontend is hosted on Vercel, which proxies /api here.
       - key: SERVE_FRONTEND
-        value: "false"
+        value: "true"
       # Vercel's proxy + Render's load balancer sit in front of the app.
       - key: TRUST_PROXY
         value: "2"
       - key: CORS_ORIGIN
-        sync: false
+        value: https://dhanvia-frontend.vercel.app,https://dhanvia-webapi.onrender.com
       - key: APP_TIMEZONE
         value: Asia/Kolkata
       - key: SESSION_TTL_DAYS
         value: "7"
       - key: REMINDER_INTERVAL_MINUTES
         value: "5"
+      - key: RUN_JOBS
+        value: "true"
