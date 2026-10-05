@@ -4,7 +4,7 @@ import { dirname, resolve } from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import { serviceCategoryPages } from './frontend/src/constants/serviceCategoryPages.js'
 
-const productionOrigin = (process.env.VITE_SITE_URL || 'https://dhanvia-frontend.vercel.app').replace(/\/+$/, '')
+const productionOrigin = (process.env.VITE_SITE_URL || 'https://www.dhanvia.com').replace(/\/+$/, '')
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (character) => ({

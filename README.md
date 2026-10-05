@@ -101,7 +101,7 @@ In production one Node process serves everything: the API under `/api`, the publ
 
 ### Current deployment: Vercel (website) + Render (API)
 
-- **Website and admin panel:** [dhanvia-frontend.vercel.app](https://dhanvia-frontend.vercel.app), a static Vite build configured by `vercel.json`.
+- **Website and admin panel:** [www.dhanvia.com](https://www.dhanvia.com) (also [dhanvia-frontend.vercel.app](https://dhanvia-frontend.vercel.app)), a static Vite build configured by `vercel.json`.
 - **API:** [dhanvia-webapi.onrender.com](https://dhanvia-webapi.onrender.com), the Express server configured by `render.yaml`. It runs the reminder engine and pings its own `/api/health` every 30 seconds so the free plan does not idle it.
 
 Vercel forwards every `/api/*` request to Render with the path unchanged, so the browser only ever talks to the Vercel domain. Login cookies stay first-party and need no CORS setup. Leave `VITE_API_BASE_URL` unset.
@@ -116,7 +116,7 @@ Vercel forwards every `/api/*` request to Render with the path unchanged, so the
 
 **5. Verify the client IP:** after logging in through the Vercel site, open the Render logs. The `ip` field in request log lines should be your real public IP. If it shows a Vercel or Render address, change `TRUST_PROXY`. Rate limiting depends on this value.
 
-**Custom domain:** add it in Vercel → Settings → Domains, then rebuild with `VITE_SITE_URL` set to the new origin (it feeds canonical links, the sitemap and `robots.txt`) and add the domain to `CORS_ORIGIN` on Render.
+**Domain:** `www.dhanvia.com` is the canonical address used in canonical links, the sitemap and `robots.txt`. To change it, rebuild with `VITE_SITE_URL` set to the new origin and add the domain to `CORS_ORIGIN` on Render.
 
 ### Option A: plain Node (VPS, PM2, systemd)
 
