@@ -106,7 +106,7 @@ In production one Node process serves everything: the API under `/api`, the publ
 - **`app`**: the Vite build (public website and `/admin`), served from the repository root.
 - **`backend`**: the Express API in `backend/`, running as a Vercel Function. Every `/api/*` request goes to it with the path unchanged, so the frontend keeps calling `/api` on its own domain and login cookies need no cross-domain setup.
 
-On Vercel the API has no long-running process, so the reminder engine runs through Vercel Cron, which calls `GET /api/cron/reminders` every 5 minutes.
+On Vercel the API has no long-running process. The reminder engine runs in the background after API requests (at most every `REMINDER_INTERVAL_MINUTES` per instance, so it keeps running while the admin panel is open), and Vercel Cron also calls `GET /api/cron/reminders` once a day at 08:00 IST.
 
 **1. Atlas:** under Network Access, allow `0.0.0.0/0`, because Vercel Functions have no fixed outbound IPs. Use a strong database password.
 
@@ -121,7 +121,7 @@ On Vercel the API has no long-running process, so the reminder engine runs throu
 4. Leave `VITE_API_BASE_URL` unset.
 5. Deploy, then check `https://<your-project>.vercel.app/api/health` reports `"database": "connected"`, and open `/admin`.
 
-The 5-minute cron schedule needs a Vercel Pro plan. On Hobby, cron jobs run at most once a day, so change the schedule in `vercel.json` (for example `0 3 * * *`).
+The daily cron schedule works on the Hobby plan. On Pro you can run it more often, for example `*/5 * * * *` in `vercel.json`.
 
 **3. First Super Admin:** run `npm --prefix backend run create-admin` on your own computer with `backend/.env` pointing at the same Atlas database. Users live in the database, so the account works on the deployed site immediately.
 

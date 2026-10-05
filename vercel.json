@@ -41,6 +41,6 @@
     { "source": "/(.*)", "destination": { "service": "app" } }
   ],
   "crons": [
-    { "path": "/api/cron/reminders", "schedule": "*/5 * * * *" }
+    { "path": "/api/cron/reminders", "schedule": "30 2 * * *" }
   ]
 }

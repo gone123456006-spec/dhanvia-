@@ -15,6 +15,7 @@
     "create-admin:prod": "NODE_ENV=production node dist/scripts/createSuperAdmin.js"
   },
   "dependencies": {
+    "@vercel/functions": "^3.9.11",
     "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
