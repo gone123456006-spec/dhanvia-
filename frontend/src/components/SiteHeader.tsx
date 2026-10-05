@@ -173,7 +173,7 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
         </nav>
 
         <div className="header-actions">
-          <a className="talk-button" href="/contact">
+          <a className="talk-button" href="tel:+919681922021" aria-label="Let's Talk: call +91 96819 22021" title="Call +91 96819 22021">
             Let's Talk
           </a>
         </div>
