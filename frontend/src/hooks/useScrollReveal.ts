@@ -20,6 +20,8 @@ const revealTargets: RevealTarget[] = [
   { selector: '.company-service-item', variant: 'zoom', stagger: true },
   { selector: '.service-category-list', variant: 'left' },
   { selector: '.service-catalog-item', variant: 'up', stagger: true },
+  { selector: '.featured-money-services-heading', variant: 'up' },
+  { selector: '.featured-money-service', variant: 'up', stagger: true },
   { selector: '.client-testimonials-header', variant: 'up' },
   { selector: '.client-testimonial-card:not(.is-off-page)', variant: 'up', stagger: true },
   { selector: '.faq-title', variant: 'up' },

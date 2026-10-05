@@ -4,6 +4,7 @@ import {
   CompanyServices,
   ConsultationPage,
   FAQ,
+  FeaturedMoneyServices,
   HeroBanner,
   IntroSplash,
   RegistrationDetailPage,
@@ -126,6 +127,8 @@ function App() {
               <CompanyServices />
               <ServiceCatalog onApply={handleServiceCatalogApply} />
             </section>
+
+            <FeaturedMoneyServices />
 
             <ClientTestimonials />
 
