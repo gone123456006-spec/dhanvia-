@@ -33,6 +33,11 @@ const schema = z.object({
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).optional(),
   SHUTDOWN_TIMEOUT_MS: z.coerce.number().int().min(1000).max(120_000).default(15_000),
   CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters').optional(),
+  KEEP_ALIVE: flag.default(true),
+  KEEP_ALIVE_URL: z.url({ protocol: /^https?$/, error: 'KEEP_ALIVE_URL must be an http(s) URL' }).optional(),
+  KEEP_ALIVE_INTERVAL_SECONDS: z.coerce.number().int().min(10).max(3600).default(30),
+  /** Set automatically by Render to the service's public URL. */
+  RENDER_EXTERNAL_URL: z.url().optional(),
 })
 
 const parsed = schema.safeParse(process.env)
@@ -78,6 +83,10 @@ export const env = {
   logLevel: values.LOG_LEVEL ?? (isProduction ? 'info' : 'debug'),
   shutdownTimeoutMs: values.SHUTDOWN_TIMEOUT_MS,
   cronSecret: values.CRON_SECRET,
+  keepAliveUrl: values.KEEP_ALIVE
+    ? values.KEEP_ALIVE_URL ?? (values.RENDER_EXTERNAL_URL ? new URL('/api/health', values.RENDER_EXTERNAL_URL).href : undefined)
+    : undefined,
+  keepAliveIntervalSeconds: values.KEEP_ALIVE_INTERVAL_SECONDS,
 }
 
 if (isProduction && !env.cookieSecure) {

@@ -2,6 +2,7 @@ import { app } from './app.js'
 import { connectDatabase, disconnectDatabase } from './config/database.js'
 import { env } from './config/env.js'
 import { markShuttingDown } from './controllers/health.controller.js'
+import { startKeepAlive } from './jobs/keepAlive.js'
 import { startReminderScheduler } from './jobs/reminders.js'
 import { logger } from './utils/logger.js'
 
@@ -22,6 +23,7 @@ async function start(): Promise<void> {
 
   const stopReminders = env.runJobs ? startReminderScheduler() : async () => {}
   if (!env.runJobs) logger.info('Background jobs disabled (RUN_JOBS=false)')
+  const stopKeepAlive = startKeepAlive()
 
   let shuttingDown = false
   async function shutdown(signal: string, exitCode = 0): Promise<void> {
@@ -39,7 +41,7 @@ async function start(): Promise<void> {
     try {
       const closed = new Promise<void>((resolve) => server.close(() => resolve()))
       server.closeIdleConnections()
-      await Promise.all([closed, stopReminders()])
+      await Promise.all([closed, stopReminders(), stopKeepAlive()])
       await disconnectDatabase()
       logger.info('Shutdown complete')
     } catch (error) {
