@@ -12,6 +12,7 @@
     "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
     "start": "NODE_ENV=production node --enable-source-maps dist/server.js",
     "create-admin": "tsx src/scripts/createSuperAdmin.ts",
+    "reset-data": "tsx src/scripts/resetData.ts",
     "create-admin:prod": "NODE_ENV=production node dist/scripts/createSuperAdmin.js"
   },
   "dependencies": {
