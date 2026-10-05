@@ -225,6 +225,15 @@
   text-align: center;
 }
 
+.support-submit-message.success { color: #1c7a3e; }
+.support-submit-message.error { color: #b42318; }
+
+.support-request-form > button:disabled {
+  cursor: wait;
+  opacity: .7;
+  transform: none;
+}
+
 .support-form-disclaimer {
   margin: 16px 0 0;
   color: #69748a;

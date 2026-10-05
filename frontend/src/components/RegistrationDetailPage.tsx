@@ -4,11 +4,14 @@ import { companyRegistrationTypes, defaultRegistrationGuide, registrationGuides 
 import { registrationCategoryGuides } from '../constants/registrationCategoryGuides'
 import { complianceCategoryGuides } from '../constants/complianceGuides'
 import { iprTaxCategoryGuides } from '../constants/iprTaxGuides'
+import { useLeadSubmission } from '../hooks/useLeadSubmission'
+import { HoneypotField } from './HoneypotField'
 
 interface RegistrationDetailPageProps {
   selectedService: string
   onServiceChange: (service: string) => void
   registrationCategory?: string
+  pageTitleOverride?: string
 }
 
 const baseDetailTabs = ['Overview', 'Eligibility', 'Documents Required']
@@ -27,17 +30,15 @@ function RegistrationLeadForm({
   formId,
   compact = false,
 }: RegistrationDetailPageProps & { formId: string; compact?: boolean }) {
-  const [submitted, setSubmitted] = useState(false)
+  const { state, message, handleSubmit } = useLeadSubmission(compact ? 'service-detail' : 'service-detail-hero')
 
   return (
     <form
       className={compact ? 'registration-detail-form compact' : 'registration-detail-form'}
       id={formId}
-      onSubmit={(event) => {
-        event.preventDefault()
-        setSubmitted(true)
-      }}
+      onSubmit={handleSubmit}
     >
+      <HoneypotField />
       <h2>{compact ? "Talk To Our Experts We're Here To Help You" : 'Choose your business structure and get started with your company registration'}</h2>
       <label htmlFor={`${formId}-name`}>Full Name*</label>
       <input id={`${formId}-name`} name="name" type="text" placeholder="Enter Your Name" autoComplete="name" required />
@@ -59,8 +60,14 @@ function RegistrationLeadForm({
 
       <label htmlFor={`${formId}-email`}>Email*</label>
       <input id={`${formId}-email`} name="email" type="email" placeholder="Enter your Email" autoComplete="email" required />
-      <button type="submit">Claim your Free Consultation</button>
-      {submitted && <p className="registration-detail-submit-status" role="status">Your service selection is ready. Form submission is not connected yet.</p>}
+      <button type="submit" disabled={state === 'submitting'}>
+        {state === 'submitting' ? 'Submitting…' : 'Claim your Free Consultation'}
+      </button>
+      {message && (
+        <p className={`registration-detail-submit-status ${state}`} role={state === 'error' ? 'alert' : 'status'}>
+          {message}
+        </p>
+      )}
       <p className="registration-detail-consent">
         By clicking, you consent to receiving updates about our services as outlined in our Privacy Statement.
       </p>
@@ -400,7 +407,7 @@ function buildRegistrationDetailFaqs(service: string, category: string): Registr
   ]
 }
 
-export function RegistrationDetailPage({ selectedService, onServiceChange, registrationCategory = 'Company Registration' }: RegistrationDetailPageProps) {
+export function RegistrationDetailPage({ selectedService, onServiceChange, registrationCategory = 'Company Registration', pageTitleOverride }: RegistrationDetailPageProps) {
   const [activeTab, setActiveTab] = useState(baseDetailTabs[0])
   const hasComparisonTabs = comparisonTabCategories.has(registrationCategory)
     || (registrationCategory === 'Compliance Calendar' || registrationCategory === 'Compliance' || registrationCategory === 'Convert Your Business')
@@ -414,7 +421,7 @@ export function RegistrationDetailPage({ selectedService, onServiceChange, regis
   const registrationName = registrationCategory === 'Company Registration' && /\bregistration\b/i.test(selectedType)
     ? selectedType.replace(/\bregistration\b/gi, 'Registration')
     : registrationCategory === 'Company Registration' ? `${selectedType} Registration` : selectedType
-  const pageTitle = `${registrationName} Online in India`
+  const pageTitle = pageTitleOverride ?? `${registrationName} Online in India`
   const highlights = categoryGuide?.highlights ?? companyRegistrationHighlights
   const faqs = buildRegistrationDetailFaqs(selectedType, registrationCategory)
 
@@ -423,6 +430,8 @@ export function RegistrationDetailPage({ selectedService, onServiceChange, regis
       <nav className="registration-detail-breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span aria-hidden="true">›</span>
+          <a href="/services">Services</a>
+          <span aria-hidden="true">›</span>
         <span>{selectedType}</span>
       </nav>
 
@@ -449,7 +458,7 @@ export function RegistrationDetailPage({ selectedService, onServiceChange, regis
         </div>
       </section>
 
-      <section className="registration-detail-body" aria-label="Company registration guide">
+      <section className="registration-detail-body" aria-label={`${registrationCategory} guide`}>
         <div className="registration-detail-main-column">
           <nav className="registration-detail-tabs" aria-label={`${registrationCategory} topics`}>
             {detailTabs.map((tab) => (

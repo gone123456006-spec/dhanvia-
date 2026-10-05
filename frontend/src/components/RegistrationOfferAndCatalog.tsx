@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { registrationServiceCategories, selectableRegistrationServices } from '../constants/data'
+import { useLeadSubmission } from '../hooks/useLeadSubmission'
+import { HoneypotField } from './HoneypotField'
 
 interface RegistrationOfferProps {
   /** Allows the ServiceCatalog to pre-select a service in this form. */
@@ -14,6 +16,8 @@ interface RegistrationOfferProps {
  * ServiceCatalog "Apply" buttons can pre-fill the form.
  */
 export function RegistrationOffer({ selectedService, onServiceChange }: RegistrationOfferProps) {
+  const { state, message, handleSubmit } = useLeadSubmission('home-offer')
+
   return (
     <section className="registration-offer" aria-labelledby="registration-offer-pitch">
       <div className="registration-offer-inner">
@@ -39,8 +43,9 @@ export function RegistrationOffer({ selectedService, onServiceChange }: Registra
           <form
             id="registration-consultation-form"
             className="registration-consultation-form"
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={handleSubmit}
           >
+            <HoneypotField />
             <h3>Choose your business structure and get started with your company registration</h3>
 
             <label htmlFor="consultation-name">Full Name*</label>
@@ -97,7 +102,14 @@ export function RegistrationOffer({ selectedService, onServiceChange }: Registra
               required
             />
 
-            <button type="submit">Claim your Free Consultation</button>
+            <button type="submit" disabled={state === 'submitting'}>
+              {state === 'submitting' ? 'Submitting…' : 'Claim your Free Consultation'}
+            </button>
+            {message && (
+              <p className={`consultation-submit-status ${state}`} role={state === 'error' ? 'alert' : 'status'}>
+                {message}
+              </p>
+            )}
             <p className="consultation-consent">
               By clicking, you consent to receiving updates about our services as outlined in our{' '}
               <span>Privacy Statement.</span>

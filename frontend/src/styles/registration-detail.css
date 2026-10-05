@@ -186,6 +186,9 @@
 }
 
 .registration-detail-submit-status { color: #875008; }
+.registration-detail-submit-status.success { color: #1c7a3e; font-size: .85rem; }
+.registration-detail-submit-status.error { color: #b42318; font-size: .85rem; }
+.registration-detail-form > button:disabled { cursor: wait; opacity: .7; }
 
 .registration-detail-body {
   display: block;

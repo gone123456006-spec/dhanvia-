@@ -3,9 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
+    "dev:api": "npm --prefix backend run dev",
     "build": "tsc -b && vite build",
+    "build:api": "npm --prefix backend run build",
+    "build:all": "npm run build && npm run build:api",
+    "start": "npm --prefix backend start",
     "lint": "eslint .",
     "preview": "vite preview"
   },

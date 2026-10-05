@@ -3,16 +3,34 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/server.js"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "start": "NODE_ENV=production node --enable-source-maps dist/server.js",
+    "create-admin": "tsx src/scripts/createSuperAdmin.ts",
+    "create-admin:prod": "NODE_ENV=production node dist/scripts/createSuperAdmin.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "compression": "^1.8.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "mongoose": "^9.10.4",
+    "multer": "^2.4.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/multer": "^2.3.0",
     "@types/node": "^24.13.3",
     "tsx": "^4.20.6",
     "typescript": "~6.0.2"

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { ApiError, formText, HONEYPOT_FIELD, submitSupportRequest } from '../api'
+import { HoneypotField } from './HoneypotField'
 
 const officeLocation = {
   city: 'Patna',
@@ -9,10 +11,30 @@ const officeLocation = {
 export function ConsultationPage() {
   const [messageLength, setMessageLength] = useState(0)
   const [submissionMessage, setSubmissionMessage] = useState('')
+  const [submissionState, setSubmissionState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSubmissionMessage('Support request submission is not connected yet.')
+    const form = event.currentTarget
+    setSubmissionState('submitting')
+    setSubmissionMessage('')
+    try {
+      const result = await submitSupportRequest({
+        name: formText(form, 'name'),
+        email: formText(form, 'email'),
+        phone: formText(form, 'phone'),
+        message: formText(form, 'message'),
+        salesConsultation: new FormData(form).get('salesConsultation') === 'on',
+        website: formText(form, HONEYPOT_FIELD) || undefined,
+      })
+      form.reset()
+      setMessageLength(0)
+      setSubmissionState('success')
+      setSubmissionMessage(result.message)
+    } catch (error) {
+      setSubmissionState('error')
+      setSubmissionMessage(error instanceof ApiError ? error.message : 'Something went wrong. Please try again.')
+    }
   }
 
   return (
@@ -20,13 +42,6 @@ export function ConsultationPage() {
       <div className="consultation-support-hero">
         <div className="consultation-support-inner">
           <div className="consultation-support-copy">
-            <p className="consultation-trust-badge">
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d="M12 3 19 6v5c0 4.4-2.9 8-7 10-4.1-2-7-5.6-7-10V6l7-3Z" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
-              Trusted by 2 Lakh+ clients
-            </p>
             <h1>Get Instant Support from Our Experts</h1>
             <p className="consultation-support-description">
               Chat with our team on WhatsApp or send us a quick message. We&apos;re here to help.
@@ -35,6 +50,7 @@ export function ConsultationPage() {
 
           <form className="support-request-form" onSubmit={handleSubmit}>
             <h2>Something Didn’t Go as Planned? Let’s Fix It Together.</h2>
+            <HoneypotField />
 
             <label htmlFor="support-name">Name *</label>
             <input id="support-name" name="name" type="text" placeholder="Enter your full name" autoComplete="name" required />
@@ -76,10 +92,16 @@ export function ConsultationPage() {
               Select this if you would like our sales team to reach out with more details on a service.
             </p>
 
-            <button type="submit">Submit Support Request</button>
-            {submissionMessage && <p className="support-submit-message" role="status">{submissionMessage}</p>}
+            <button type="submit" disabled={submissionState === 'submitting'}>
+              {submissionState === 'submitting' ? 'Submitting…' : 'Submit Support Request'}
+            </button>
+            {submissionMessage && (
+              <p className={`support-submit-message ${submissionState}`} role={submissionState === 'error' ? 'alert' : 'status'}>
+                {submissionMessage}
+              </p>
+            )}
             <p className="support-form-disclaimer">
-              By submitting this form, you will be redirected to log in or create an account to track your support ticket.
+              Keep your ticket number handy. Our team will reach out on your email or phone number.
             </p>
           </form>
         </div>
