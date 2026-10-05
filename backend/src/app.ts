@@ -9,6 +9,7 @@ import { frontendRouter } from './middleware/frontend.js'
 import { requestContext } from './middleware/requestContext.js'
 import { authRouter } from './routes/auth.routes.js'
 import { crmRouter } from './routes/crm.routes.js'
+import { cronRouter } from './routes/cron.routes.js'
 import { healthRouter } from './routes/health.routes.js'
 import { publicRouter } from './routes/public.routes.js'
 
@@ -45,6 +46,7 @@ app.use('/api', express.json({ limit: '200kb' }))
 app.use('/api', cookieParser())
 
 app.use('/api/health', healthRouter)
+app.use('/api/cron', cronRouter)
 app.use('/api', publicRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/admin', (_request, response, next) => {

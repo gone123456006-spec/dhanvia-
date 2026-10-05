@@ -32,6 +32,7 @@ const schema = z.object({
   FRONTEND_DIST: z.string().default('../frontend/dist'),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).optional(),
   SHUTDOWN_TIMEOUT_MS: z.coerce.number().int().min(1000).max(120_000).default(15_000),
+  CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters').optional(),
 })
 
 const parsed = schema.safeParse(process.env)
@@ -42,6 +43,8 @@ if (!parsed.success) {
 
 const values = parsed.data
 const isProduction = values.NODE_ENV === 'production'
+/** Set by Vercel at build and run time; the frontend is served by its own service there. */
+const onVercel = Boolean(process.env.VERCEL)
 
 try {
   new Intl.DateTimeFormat('en-IN', { timeZone: values.APP_TIMEZONE })
@@ -70,10 +73,11 @@ export const env = {
   cookieSecure: values.COOKIE_SECURE ?? isProduction,
   reminderIntervalMinutes: values.REMINDER_INTERVAL_MINUTES,
   runJobs: values.RUN_JOBS,
-  serveFrontend: values.SERVE_FRONTEND ?? isProduction,
+  serveFrontend: values.SERVE_FRONTEND ?? (isProduction && !onVercel),
   frontendDist: resolve(values.FRONTEND_DIST),
   logLevel: values.LOG_LEVEL ?? (isProduction ? 'info' : 'debug'),
   shutdownTimeoutMs: values.SHUTDOWN_TIMEOUT_MS,
+  cronSecret: values.CRON_SECRET,
 }
 
 if (isProduction && !env.cookieSecure) {

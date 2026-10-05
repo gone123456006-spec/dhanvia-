@@ -2,7 +2,7 @@ import type { Request, Response } from 'express'
 import { isDatabaseConnected } from '../config/database.js'
 
 let shuttingDown = false
-const version = (process.env.RENDER_GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev').slice(0, 7)
+const version = (process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.RENDER_GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev').slice(0, 7)
 const startedAt = new Date().toISOString()
 
 export function markShuttingDown(): void {

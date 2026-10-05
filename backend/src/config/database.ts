@@ -5,11 +5,16 @@ import { env } from './env.js'
 // Covers a network that is still coming up (laptop wake, Wi-Fi/hotspot join, container DNS warm-up).
 const CONNECT_ATTEMPTS = 10
 
-export async function connectDatabase(): Promise<void> {
+let listenersAttached = false
+
+export async function connectDatabase(attempts = CONNECT_ATTEMPTS): Promise<void> {
   mongoose.set('strictQuery', true)
-  mongoose.connection.on('disconnected', () => logger.warn('MongoDB disconnected'))
-  mongoose.connection.on('reconnected', () => logger.info('MongoDB reconnected'))
-  mongoose.connection.on('error', (error: unknown) => logger.error('MongoDB connection error', { error }))
+  if (!listenersAttached) {
+    listenersAttached = true
+    mongoose.connection.on('disconnected', () => logger.warn('MongoDB disconnected'))
+    mongoose.connection.on('reconnected', () => logger.info('MongoDB reconnected'))
+    mongoose.connection.on('error', (error: unknown) => logger.error('MongoDB connection error', { error }))
+  }
 
   for (let attempt = 1; ; attempt += 1) {
     try {
@@ -23,7 +28,7 @@ export async function connectDatabase(): Promise<void> {
       logger.info('Connected to MongoDB', { database: env.mongoDbName })
       return
     } catch (error) {
-      if (attempt >= CONNECT_ATTEMPTS) throw error
+      if (attempt >= attempts) throw error
       const delayMs = Math.min(2_000 * attempt, 15_000)
       logger.warn('MongoDB connection failed, retrying', { attempt, retryInMs: delayMs, reason: error instanceof Error ? error.message : String(error) })
       await mongoose.disconnect().catch(() => undefined)
