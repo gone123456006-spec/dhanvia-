@@ -47,10 +47,10 @@ export interface BannerSlide {
 }
 
 export const bannerSlides: BannerSlide[] = [
-  { src: '/IMG_0945.PNG', alt: 'Invest in mutual funds for a better tomorrow' },
-  { src: '/IMG_0936.PNG', alt: 'Business compliance services' },
-  { src: '/IMG_0947.PNG', alt: 'Home, personal, and business loan solutions' },
-  { src: '/IMG_0953.PNG', alt: 'Insurance plans for a safer tomorrow' },
+  { src: '/IMG_0945.webp', alt: 'Invest in mutual funds for a better tomorrow' },
+  { src: '/IMG_0936.webp', alt: 'Business compliance services' },
+  { src: '/IMG_0947.webp', alt: 'Home, personal, and business loan solutions' },
+  { src: '/IMG_0953.webp', alt: 'Insurance plans for a safer tomorrow' },
 ]
 
 // ─── Registration Steps ───────────────────────────────────────────────────────

@@ -359,9 +359,8 @@
     gap: 0;
     padding: 16px 18px 20px;
     border-bottom: 0;
-    background: rgba(243, 245, 241, 0.98);
+    background: rgb(243, 245, 241);
     box-shadow: -14px 0 28px rgba(14, 22, 35, 0.12);
-    backdrop-filter: blur(10px);
     opacity: 0;
     pointer-events: none;
     transform: translateX(110%);

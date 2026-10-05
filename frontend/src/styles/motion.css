@@ -33,7 +33,7 @@
 }
 
 .intro-splash.is-leaving {
-  animation: intro-lift 900ms var(--ease-in-out-quint) forwards;
+  animation: intro-lift 700ms var(--ease-in-out-quint) forwards;
   pointer-events: none;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .intro-splash.is-leaving .intro-splash-content {
-  animation: intro-content-out 500ms ease-in forwards;
+  animation: intro-content-out 400ms ease-in forwards;
 }
 
 .intro-splash-wordmark {
@@ -65,8 +65,8 @@
 
 .intro-splash-letter > span {
   display: inline-block;
-  transform: translateY(110%) rotate(8deg);
-  animation: intro-letter 800ms var(--ease-out-expo) forwards;
+  transform: translateY(110%);
+  animation: intro-letter 650ms var(--ease-out-expo) forwards;
 }
 
 .intro-splash-tagline {
@@ -77,7 +77,7 @@
   letter-spacing: .32em;
   opacity: 0;
   text-transform: uppercase;
-  animation: intro-tagline 700ms var(--ease-out-expo) 750ms forwards;
+  animation: intro-tagline 550ms var(--ease-out-expo) 550ms forwards;
 }
 
 .intro-splash-line {
@@ -88,42 +88,40 @@
   background: #fff;
   transform: scaleX(0);
   transform-origin: left;
-  animation: intro-line 1200ms var(--ease-in-out-quint) 300ms forwards;
+  animation: intro-line 900ms var(--ease-in-out-quint) 250ms forwards;
 }
 
+/* Soft glows drawn with gradients: a CSS blur filter on elements this large stutters on phones. */
 .intro-splash-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
   opacity: .55;
   pointer-events: none;
 }
 
 .intro-splash-glow--one {
-  top: 12%;
-  left: 14%;
-  width: 34vmax;
-  height: 34vmax;
-  background: #7dffb8;
-  animation: intro-float 3.2s ease-in-out infinite alternate;
+  top: 4%;
+  left: 6%;
+  width: 46vmax;
+  height: 46vmax;
+  background: radial-gradient(closest-side, #7dffb8, rgb(125 255 184 / 0));
 }
 
 .intro-splash-glow--two {
-  right: 10%;
-  bottom: 8%;
-  width: 28vmax;
-  height: 28vmax;
-  background: #009a50;
-  animation: intro-float 2.6s ease-in-out infinite alternate-reverse;
+  right: 2%;
+  bottom: 0;
+  width: 40vmax;
+  height: 40vmax;
+  background: radial-gradient(closest-side, #009a50, rgb(0 154 80 / 0));
 }
 
 @keyframes intro-letter {
-  to { transform: translateY(0) rotate(0); }
+  to { transform: translateY(0); }
 }
 
 @keyframes intro-tagline {
-  from { opacity: 0; transform: translateY(12px); letter-spacing: .6em; }
-  to { opacity: 1; transform: translateY(0); letter-spacing: .32em; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes intro-line {
@@ -131,11 +129,6 @@
   60% { transform: scaleX(1); transform-origin: left; }
   61% { transform-origin: right; }
   100% { transform: scaleX(.35); transform-origin: right; }
-}
-
-@keyframes intro-float {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(6vmax, 4vmax) scale(1.15); }
 }
 
 @keyframes intro-content-out {
@@ -149,19 +142,19 @@
 /* ── Page entrance ─────────────────────────────────────────────────────────── */
 
 .site-shell.is-entered .site-header {
-  animation: header-in 800ms var(--ease-out-expo) backwards;
+  animation: header-in 600ms var(--ease-out-expo) backwards;
 }
 
 .site-shell.is-entered main > :first-child {
-  animation: page-in 1000ms var(--ease-out-expo) 120ms backwards;
+  animation: page-in 700ms var(--ease-out-expo) 80ms backwards;
 }
 
 .site-shell.is-entered .hero-carousel-stage {
-  animation: hero-zoom 1600ms var(--ease-out-expo) backwards;
+  animation: hero-zoom 900ms var(--ease-out-expo) backwards;
 }
 
 .site-shell.is-entered .hero-carousel-pagination {
-  animation: page-in 800ms var(--ease-out-expo) 600ms backwards;
+  animation: page-in 600ms var(--ease-out-expo) 350ms backwards;
 }
 
 @keyframes header-in {
@@ -170,34 +163,31 @@
 }
 
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes hero-zoom {
-  from { transform: scale(1.12); filter: saturate(.6) brightness(1.1); }
-  to { transform: scale(1); filter: none; }
+  from { transform: scale(1.04); }
+  to { transform: scale(1); }
 }
 
 /* ── Scroll reveal ─────────────────────────────────────────────────────────── */
 
+/* Only opacity and transform animate: both run on the GPU without repainting the page. */
 [data-reveal] {
   transition:
-    opacity 800ms var(--ease-out-expo),
-    transform 800ms var(--ease-out-expo),
-    filter 800ms var(--ease-out-expo);
+    opacity 600ms ease-out,
+    transform 600ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-[data-reveal]:not(.is-revealed) {
-  opacity: 0;
-  filter: blur(6px);
-}
+[data-reveal]:not(.is-revealed) { opacity: 0; }
 
-[data-reveal='up']:not(.is-revealed) { transform: translateY(42px); }
-[data-reveal='left']:not(.is-revealed) { transform: translateX(-56px); }
-[data-reveal='right']:not(.is-revealed) { transform: translateX(56px); }
-[data-reveal='zoom']:not(.is-revealed) { transform: scale(.88) translateY(24px); }
+[data-reveal='up']:not(.is-revealed) { transform: translateY(20px); }
+[data-reveal='left']:not(.is-revealed) { transform: translateX(-24px); }
+[data-reveal='right']:not(.is-revealed) { transform: translateX(24px); }
+[data-reveal='zoom']:not(.is-revealed) { transform: scale(.96) translateY(12px); }
 
 /* ── Scroll progress ───────────────────────────────────────────────────────── */
 
@@ -225,7 +215,6 @@
 
   [data-reveal]:not(.is-revealed) {
     opacity: 1;
-    filter: none;
     transform: none;
   }
 }

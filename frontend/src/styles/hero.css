@@ -22,8 +22,8 @@
   display: flex;
   width: 400%;
   flex: 0 0 auto;
-  transition: translate 850ms cubic-bezier(.7, 0, .25, 1);
-  will-change: transform;
+  transition: translate 700ms cubic-bezier(.65, 0, .35, 1);
+  will-change: translate;
 }
 
 .hero-carousel-arrow {

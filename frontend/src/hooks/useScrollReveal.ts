@@ -43,9 +43,9 @@ const revealTargets: RevealTarget[] = [
   { selector: '.footer-bottom', variant: 'up' },
 ]
 
-const STAGGER_MS = 90
-const MAX_STAGGER_STEPS = 6
-const REVEAL_DURATION_MS = 900
+const STAGGER_MS = 60
+const MAX_STAGGER_STEPS = 4
+const REVEAL_DURATION_MS = 700
 
 /**
  * Fades and slides page sections into view as they scroll into the viewport.

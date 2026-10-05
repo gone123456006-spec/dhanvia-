@@ -9,10 +9,16 @@ export function ScrollProgress() {
 
   useEffect(() => {
     let frame = 0
+    let scrollable = 0
+
+    // Reading scrollHeight forces layout, so it is measured only when the page size changes.
+    function measure() {
+      scrollable = document.documentElement.scrollHeight - window.innerHeight
+      onScroll()
+    }
 
     function update() {
       frame = 0
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight
       const progress = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0
       barRef.current?.style.setProperty('transform', `scaleX(${progress})`)
     }
@@ -21,12 +27,15 @@ export function ScrollProgress() {
       if (!frame) frame = window.requestAnimationFrame(update)
     }
 
-    update()
+    const resizeObserver = new ResizeObserver(measure)
+    resizeObserver.observe(document.body)
+    measure()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', measure)
     return () => {
+      resizeObserver.disconnect()
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', measure)
       if (frame) window.cancelAnimationFrame(frame)
     }
   }, [])

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 const WORDMARK = 'Dhanvia'
-const EXIT_AT_MS = 1700
-const EXIT_DURATION_MS = 900
+const EXIT_AT_MS = 1200
+const EXIT_DURATION_MS = 700
 
 interface IntroSplashProps {
   /** Called when the curtain starts lifting, so the page can play its entrance. */
@@ -56,7 +56,7 @@ export function IntroSplash({ onReveal, onDone }: IntroSplashProps) {
         <p className="intro-splash-wordmark" aria-label={WORDMARK}>
           {WORDMARK.split('').map((letter, index) => (
             <span key={index} className="intro-splash-letter" aria-hidden="true">
-              <span style={{ animationDelay: `${120 + index * 70}ms` }}>{letter}</span>
+              <span style={{ animationDelay: `${80 + index * 50}ms` }}>{letter}</span>
             </span>
           ))}
         </p>
