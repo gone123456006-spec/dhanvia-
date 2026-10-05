@@ -99,37 +99,24 @@ Collections and indexes are created automatically on first start.
 
 In production one Node process serves everything: the API under `/api`, the public website, and the admin panel under `/admin`. All of them share one domain, so cookies and CORS need no extra setup.
 
-### Recommended: Vercel (website, admin panel and API in one project)
+### Current deployment: Vercel (website) + Render (API)
 
-`vercel.json` deploys the repo as one Vercel project with two services on one domain:
+- **Website and admin panel:** [www.dhanvia.com](https://www.dhanvia.com) (also [dhanvia-frontend.vercel.app](https://dhanvia-frontend.vercel.app)), a static Vite build configured by `vercel.json`.
+- **API:** [dhanvia-webapi.onrender.com](https://dhanvia-webapi.onrender.com), the Express server configured by `render.yaml`. It runs the reminder engine and pings its own `/api/health` every 30 seconds so the free plan does not idle it.
 
-- **`app`**: the Vite build (public website and `/admin`), served from the repository root.
-- **`backend`**: the Express API in `backend/`, running as a Vercel Function. Every `/api/*` request goes to it with the path unchanged, so the frontend keeps calling `/api` on its own domain and login cookies need no cross-domain setup.
+Vercel forwards every `/api/*` request to Render with the path unchanged, so the browser only ever talks to the Vercel domain. Login cookies stay first-party and need no CORS setup. Leave `VITE_API_BASE_URL` unset.
 
-On Vercel the API has no long-running process. The reminder engine runs in the background after API requests (at most every `REMINDER_INTERVAL_MINUTES` per instance, so it keeps running while the admin panel is open), and Vercel Cron also calls `GET /api/cron/reminders` once a day at 08:00 IST.
+**1. Atlas:** under Network Access, allow `0.0.0.0/0`, because Render has no fixed outbound IPs on the free plan. Use a strong database password.
 
-**1. Atlas:** under Network Access, allow `0.0.0.0/0`, because Vercel Functions have no fixed outbound IPs. Use a strong database password.
+**2. Render (API):** create a Node web service from this repo with the build command, start command and environment variables listed in `render.yaml`. Set `MONGODB_URI` by hand. Check that `https://dhanvia-webapi.onrender.com/api/health` reports `"database": "connected"`.
 
-**2. Vercel project:**
+**3. Vercel (website):** import the repo with the **Root Directory** left as the repository root; build settings come from `vercel.json`. No environment variables are needed. If the API URL changes, update the `/api/:path*` rewrite in `vercel.json`.
 
-1. Push the repo to GitHub, then go to Vercel → **Add New** → **Project** and import it.
-2. Keep the **Root Directory** as the repository root. Build settings come from `vercel.json`.
-3. Under **Settings → Environment Variables**, add:
-   - `MONGODB_URI`: your Atlas connection string.
-   - `CRON_SECRET`: a random string of at least 16 characters (`openssl rand -hex 32`). Vercel sends it with each cron call; the cron route stays disabled without it.
-   - Optional: `MONGODB_DB_NAME` (default `dhanvia`), `APP_TIMEZONE` (default `Asia/Kolkata`), `SESSION_TTL_DAYS`.
-4. Leave `VITE_API_BASE_URL` unset.
-5. Deploy, then check `https://<your-project>.vercel.app/api/health` reports `"database": "connected"`, and open `/admin`.
+**4. First Super Admin:** run `npm --prefix backend run create-admin` on your own computer with `backend/.env` pointing at the same Atlas database. Users live in the database, so the account works on the deployed site immediately.
 
-The daily cron schedule works on the Hobby plan. On Pro you can run it more often, for example `*/5 * * * *` in `vercel.json`.
+**5. Verify the client IP:** after logging in through the Vercel site, open the Render logs. The `ip` field in request log lines should be your real public IP. If it shows a Vercel or Render address, change `TRUST_PROXY`. Rate limiting depends on this value.
 
-**3. First Super Admin:** run `npm --prefix backend run create-admin` on your own computer with `backend/.env` pointing at the same Atlas database. Users live in the database, so the account works on the deployed site immediately.
-
-**4. Verify the client IP:** after logging in once, open the function logs for the `backend` service. The `ip` field in request log lines should be your real public IP. If it shows a Vercel address, change `TRUST_PROXY`. Rate limiting depends on this value.
-
-**Custom domain:** add `www.dhanvia.com` in Vercel → Settings → Domains.
-
-**Local check of the Vercel setup:** `vercel dev` runs both services together with the same routing.
+**Domain:** `www.dhanvia.com` is the canonical address used in canonical links, the sitemap and `robots.txt`. To change it, rebuild with `VITE_SITE_URL` set to the new origin and add the domain to `CORS_ORIGIN` on Render.
 
 ### Option A: plain Node (VPS, PM2, systemd)
 

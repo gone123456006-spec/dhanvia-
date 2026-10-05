@@ -19,7 +19,7 @@ function setMeta(attribute: 'name' | 'property', key: string, content: string) {
 
 export function SeoHead({ title, description, canonicalPath, structuredData }: SeoHeadProps) {
   useEffect(() => {
-    const canonicalUrl = `https://www.dhanvia.com${canonicalPath}`
+    const canonicalUrl = `${import.meta.env.VITE_SITE_URL}${canonicalPath}`
     document.title = title
     setMeta('name', 'description', description)
     setMeta('name', 'robots', 'index, follow, max-image-preview:large')

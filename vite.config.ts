@@ -4,7 +4,7 @@ import { dirname, resolve } from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import { serviceCategoryPages } from './frontend/src/constants/serviceCategoryPages.js'
 
-const productionOrigin = 'https://www.dhanvia.com'
+const productionOrigin = (process.env.VITE_SITE_URL || 'https://www.dhanvia.com').replace(/\/+$/, '')
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (character) => ({
@@ -112,6 +112,16 @@ function seoFilesPlugin(): Plugin {
   }
 }
 
+function siteUrlPlugin(): Plugin {
+  return {
+    name: 'dhanvia-site-url',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html.replaceAll('%SITE_URL%', productionOrigin),
+    },
+  }
+}
+
 function adminSpaFallbackPlugin(): Plugin {
   const rewrite = (url = '') => {
     const [path] = url.split('?')
@@ -137,7 +147,10 @@ function adminSpaFallbackPlugin(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   root: 'frontend',
-  plugins: [react(), seoFilesPlugin(), adminSpaFallbackPlugin()],
+  plugins: [react(), siteUrlPlugin(), seoFilesPlugin(), adminSpaFallbackPlugin()],
+  define: {
+    'import.meta.env.VITE_SITE_URL': JSON.stringify(productionOrigin),
+  },
   build: {
     rollupOptions: {
       input: {

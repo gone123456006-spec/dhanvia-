@@ -25,6 +25,9 @@
 /* 7. Company services grid & service catalog */
 @import './styles/services.css';
 
+/* 7b. Mutual funds, loans and insurance cards */
+@import './styles/featured-services.css';
+
 /* 8. Client testimonials */
 @import './styles/testimonials.css';
 
