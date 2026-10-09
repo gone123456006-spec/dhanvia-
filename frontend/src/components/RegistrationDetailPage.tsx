@@ -389,7 +389,15 @@ function buildRegistrationDetailFaqs(service: string, category: string): Registr
   const guide = registrationCategoryGuides[category]
     ?? complianceCategoryGuides[category]
     ?? iprTaxCategoryGuides[category]
-  if (!guide) return []
+  if (!guide) {
+    return [
+      { question: `What does ${service} cover?`, answer: `${service} is handled end to end by our team: we confirm what applies to you, prepare the documents, file with the relevant authority, and track it until completion.` },
+      { question: `Who should apply for ${service}?`, answer: 'It depends on your business type, activity, turnover, and location. Share your details and our expert will confirm whether it applies to you and what is required.' },
+      { question: `Which documents are commonly needed for ${service}?`, answer: 'Usually PAN, identity and address proof of the applicant, business address proof, and business registration details. The exact checklist depends on the applicant and current authority instructions.' },
+      { question: `How long does ${service} take?`, answer: 'Timelines depend on document readiness and government processing. Our team shares an expected timeline once your documents are reviewed.' },
+      { question: 'Does this service include other registrations or filings?', answer: 'Not automatically. Related registrations, renewals, tax filings, permissions, or post-approval steps may be separate. Confirm the required scope for your activity and jurisdiction before applying.' },
+    ]
+  }
   const guideTypeName = categoryServiceAliases[category]?.[service] ?? service
   const serviceGuide = guide.types.find(({ name }) => name === guideTypeName)
   const serviceOverview = serviceGuide
@@ -414,7 +422,7 @@ export function RegistrationDetailPage({ selectedService, onServiceChange, regis
   const detailTabs = hasComparisonTabs
     ? ['Overview', 'Company Types', 'Business Structure', 'Eligibility', 'Documents Required']
     : baseDetailTabs
-  const selectedType = selectedService || 'Company Registration'
+  const selectedType = selectedService || registrationCategory
   const categoryGuide = registrationCategoryGuides[registrationCategory]
     ?? complianceCategoryGuides[registrationCategory]
     ?? iprTaxCategoryGuides[registrationCategory]

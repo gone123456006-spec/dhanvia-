@@ -11,6 +11,8 @@ const networks = [
   { key: 'instagram', label: 'Instagram', placeholder: 'https://www.instagram.com/yourpage' },
   { key: 'facebook', label: 'Facebook', placeholder: 'https://www.facebook.com/yourpage' },
   { key: 'youtube', label: 'YouTube', placeholder: 'https://youtube.com/@yourchannel' },
+  { key: 'linkedin', label: 'LinkedIn', placeholder: 'https://www.linkedin.com/company/yourpage' },
+  { key: 'twitter', label: 'X (Twitter)', placeholder: 'https://x.com/yourhandle' },
 ] as const
 
 type NetworkKey = (typeof networks)[number]['key']
@@ -63,7 +65,7 @@ export function SocialMediaPage() {
               <thead><tr><th>Page</th>{networks.map((network) => <th key={network.key}>{network.label}</th>)}</tr></thead>
               <tbody>
                 {data.accounts.length === 0 ? (
-                  <tr><td colSpan={4} className="crm-muted">No pages added yet.</td></tr>
+                  <tr><td colSpan={networks.length + 1} className="crm-muted">No pages added yet.</td></tr>
                 ) : data.accounts.map((account, index) => (
                   <tr key={account._id ?? index}>
                     <td><strong>{account.name}</strong></td>
@@ -117,14 +119,14 @@ function SocialEditor({ accounts, onCancel, onSaved }: { accounts: SocialAccount
             </Field>
             {networks.map((network) => (
               <Field key={network.key} label={`${network.label} link`} error={errors[`accounts.${index}.${network.key}`]}>
-                <div className="crm-social-input"><SocialIcon network={network.key} size={22} /><Input type="url" inputMode="url" value={row[network.key]} onChange={(event) => update(index, network.key, event.target.value)} placeholder={network.placeholder} /></div>
+                <div className="crm-social-input"><SocialIcon network={network.key} size={22} /><Input type="url" inputMode="url" value={row[network.key] ?? ''} onChange={(event) => update(index, network.key, event.target.value)} placeholder={network.placeholder} /></div>
               </Field>
             ))}
           </div>
         </Card>
       ))}
       <div className="crm-form-actions">
-        <Button onClick={() => setRows([...rows, { name: '', instagram: '', facebook: '', youtube: '' }])}>Add another page</Button>
+        <Button onClick={() => setRows([...rows, { name: '', instagram: '', facebook: '', youtube: '', linkedin: '', twitter: '' }])}>Add another page</Button>
         <span className="crm-spacer" />
         <Button onClick={onCancel}>Cancel</Button>
         <Button type="submit" variant="primary" loading={saving}>Save links</Button>

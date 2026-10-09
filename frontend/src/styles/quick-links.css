@@ -1,0 +1,114 @@
+/* =============================================================================
+   quick-links.css — Icon shortcut row above the registration offer
+   ============================================================================= */
+
+.quick-links {
+  border-top: 1px solid #edf0f3;
+  background: #fff;
+}
+
+.quick-links-list {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-block: 0;
+  padding: 26px 0;
+  list-style: none;
+}
+
+.quick-links-list li { min-width: 0; }
+
+.quick-links-list li + li { border-left: 1px solid #e3e8ee; }
+
+.quick-links-list a {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 18px 6px;
+  color: #1b2a4e;
+  text-decoration: none;
+}
+
+.quick-links-icon {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 14px;
+  fill: none;
+  stroke: #1b2a4e;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  transition: transform .2s ease;
+}
+
+.quick-links-list strong {
+  font-size: .92rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.quick-links-text {
+  margin-top: 4px;
+  color: #2c3647;
+  font-size: .84rem;
+  line-height: 1.4;
+}
+
+.quick-links-list a:hover strong,
+.quick-links-list a:focus-visible strong { color: #007a3f; }
+
+.quick-links-list a:hover .quick-links-icon,
+.quick-links-list a:focus-visible .quick-links-icon { transform: translateY(-3px); }
+
+/* Orange tag with a pointer on its left edge. */
+.quick-links-badge {
+  position: relative;
+  margin: 6px 0 4px 8px;
+  padding: 3px 8px;
+  background: #f4845f;
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.quick-links-badge::before {
+  position: absolute;
+  top: 0;
+  left: -8px;
+  border-block: 9px solid transparent;
+  border-right: 8px solid #f4845f;
+  content: '';
+}
+
+/* Scroll sideways on smaller screens instead of squeezing seven columns. */
+@media (max-width: 1100px) {
+  .quick-links-list {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    padding-inline: 16px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .quick-links-list::-webkit-scrollbar { display: none; }
+
+  .quick-links-list li {
+    flex: 0 0 168px;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .quick-links-list { padding-block: 18px; }
+  .quick-links-list li { flex-basis: 146px; }
+  .quick-links-list a { padding-inline: 14px; }
+  .quick-links-icon { width: 40px; height: 40px; margin-bottom: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quick-links-icon { transition: none; }
+}

@@ -5,17 +5,20 @@ import {
   ConsultationPage,
   FAQ,
   FeaturedMoneyServices,
+  FloatingContactButtons,
   HeroBanner,
   IntroSplash,
+  QuickLinks,
   RegistrationDetailPage,
   RegistrationOffer,
   RegistrationProcess,
-  ScrollProgress,
   ServiceCatalog,
+  ServiceDirectoryPage,
   SiteFooter,
   SiteHeader,
 } from './components'
 import { registrationServiceCategories } from './constants/data'
+import { contactFaqs, homeFaqs, servicesFaqs } from './constants/faqs'
 import { useScrollReveal } from './hooks/useScrollReveal'
 
 const INTRO_SEEN_KEY = 'dhanvia-intro-seen'
@@ -61,6 +64,8 @@ function App() {
   const currentPath = window.location.pathname.replace(/\/$/, '')
   const isContactPage = currentPath === '/contact'
   const isRegistrationPage = currentPath === '/company-registration' || currentPath === '/registration-details'
+  const isServicesPage = currentPath === '/services'
+  const isInnerPage = isContactPage || isRegistrationPage || isServicesPage
   const registrationCategory = new URLSearchParams(window.location.search).get('category')
     ?? 'Company Registration'
 
@@ -71,7 +76,7 @@ function App() {
       window.location.href = `${path}?category=${encodeURIComponent(category)}&service=${encodeURIComponent(service)}`
       return
     }
-    if (isContactPage || isRegistrationPage) {
+    if (isInnerPage) {
       sessionStorage.setItem('selectedRegistrationService', service)
       window.location.href = '/#registration-consultation-form'
       return
@@ -97,16 +102,23 @@ function App() {
   return (
     <div className={`site-shell${entered ? ' is-entered' : ''}`} id="top">
       {showIntro && <IntroSplash onReveal={handleIntroReveal} onDone={handleIntroDone} />}
-      <ScrollProgress />
       <SiteHeader
         onSelectService={handleRegistrationServiceSelect}
         isContactPage={isContactPage}
-        isRegistrationPage={isRegistrationPage}
+        isRegistrationPage={isRegistrationPage || isServicesPage}
       />
 
       <main>
         {isContactPage ? (
-          <ConsultationPage />
+          <>
+            <ConsultationPage />
+            <FAQ items={contactFaqs} />
+          </>
+        ) : isServicesPage ? (
+          <>
+            <ServiceDirectoryPage />
+            <FAQ items={servicesFaqs} />
+          </>
         ) : isRegistrationPage ? (
           <RegistrationDetailPage
             selectedService={selectedRegistrationService}
@@ -117,6 +129,8 @@ function App() {
           <>
             <HeroBanner />
             <RegistrationProcess />
+
+            <QuickLinks />
 
             <RegistrationOffer
               selectedService={selectedRegistrationService}
@@ -132,12 +146,13 @@ function App() {
 
             <ClientTestimonials />
 
-            <FAQ />
+            <FAQ items={homeFaqs} />
           </>
         )}
       </main>
 
-      <SiteFooter isContactPage={isContactPage || isRegistrationPage} />
+      <SiteFooter isContactPage={isInnerPage} />
+      <FloatingContactButtons />
     </div>
   )
 }

@@ -17,7 +17,7 @@ export function useLeadSubmission(source: LeadSource) {
       const result = await submitLead({
         name: formText(form, 'name'),
         phone: formText(form, 'phone'),
-        email: formText(form, 'email'),
+        email: formText(form, 'email') || undefined,
         service: formText(form, 'service'),
         callingCode: callingCode || undefined,
         source,

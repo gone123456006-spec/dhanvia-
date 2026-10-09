@@ -50,7 +50,7 @@ export type LeadSource = 'home-offer' | 'service-detail-hero' | 'service-detail'
 export interface LeadInput {
   name: string
   phone: string
-  email: string
+  email?: string
   service: string
   callingCode?: string
   source?: LeadSource
@@ -76,6 +76,20 @@ export function submitLead(input: LeadInput) {
 
 export function submitSupportRequest(input: SupportRequestInput) {
   return postJson<{ id: string; ticketNumber: string; message: string }>('/api/support-requests', input)
+}
+
+export interface SocialLinks {
+  instagram: string
+  facebook: string
+  youtube: string
+  linkedin: string
+  twitter: string
+}
+
+export async function fetchSocialLinks(): Promise<SocialLinks> {
+  const response = await fetch(`${apiBaseUrl}/api/social-links`)
+  if (!response.ok) throw new ApiError('Could not load social links.')
+  return response.json() as Promise<SocialLinks>
 }
 
 export function formText(form: HTMLFormElement, name: string): string {

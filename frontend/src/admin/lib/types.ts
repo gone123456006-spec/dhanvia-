@@ -234,6 +234,8 @@ export interface SocialAccount {
   instagram: string
   facebook: string
   youtube: string
+  linkedin: string
+  twitter: string
 }
 
 export interface CustomRole {

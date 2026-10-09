@@ -42,7 +42,7 @@ export const websiteLeadSources = ['home-offer', 'service-detail-hero', 'service
 
 export const createWebsiteLeadSchema = z.object({
   name,
-  email,
+  email: optionalEmail,
   phone,
   callingCode: z.string().trim().regex(/^\+\d{1,4}$/, 'Invalid calling code').optional(),
   service: z.string().trim().min(1, 'Select a service').max(200),
@@ -343,6 +343,8 @@ export const socialAccountsSchema = z.object({
     instagram: socialUrl,
     facebook: socialUrl,
     youtube: socialUrl,
+    linkedin: socialUrl,
+    twitter: socialUrl,
   })).max(50),
 })
 
