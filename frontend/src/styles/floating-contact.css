@@ -1,0 +1,83 @@
+/* =============================================================================
+   floating-contact.css — WhatsApp and Call buttons pinned to the screen corner
+   ============================================================================= */
+
+.floating-contact {
+  position: fixed;
+  right: calc(20px + env(safe-area-inset-right));
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  /* Below the header (5) so the open mobile menu covers the buttons. */
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floating-contact-button {
+  position: relative;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 50%;
+  box-shadow: 0 8px 22px rgba(10, 30, 18, .25);
+  color: #fff;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.floating-contact-button svg { width: 28px; height: 28px; fill: currentColor; }
+
+.floating-contact-button--whatsapp { background: #25d366; }
+.floating-contact-button--call { background: #0b0b0b; }
+.floating-contact-button--call svg { width: 24px; height: 24px; }
+
+.floating-contact-button:hover,
+.floating-contact-button:focus-visible {
+  box-shadow: 0 12px 26px rgba(10, 30, 18, .32);
+  transform: translateY(-3px);
+}
+
+/* Label slides out to the left on hover (mouse users only). */
+.floating-contact-label {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: #0b0b0b;
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(6px, -50%);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+@media (hover: hover) {
+  .floating-contact-button:hover .floating-contact-label,
+  .floating-contact-button:focus-visible .floating-contact-label {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@media (max-width: 560px) {
+  .floating-contact {
+    right: calc(14px + env(safe-area-inset-right));
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    gap: 10px;
+  }
+
+  .floating-contact-button { width: 48px; height: 48px; }
+  .floating-contact-button svg { width: 25px; height: 25px; }
+  .floating-contact-button--call svg { width: 21px; height: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-contact-button,
+  .floating-contact-label { transition: none; }
+}

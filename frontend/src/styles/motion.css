@@ -189,27 +189,6 @@
 [data-reveal='right']:not(.is-revealed) { transform: translateX(24px); }
 [data-reveal='zoom']:not(.is-revealed) { transform: scale(.96) translateY(12px); }
 
-/* ── Scroll progress ───────────────────────────────────────────────────────── */
-
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 60;
-  height: 3px;
-  pointer-events: none;
-}
-
-.scroll-progress > span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, #0b0b0b, #fff 60%, var(--yellow));
-  transform: scaleX(0);
-  transform-origin: left;
-  box-shadow: 0 0 10px rgba(255, 255, 255, .6);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .intro-splash { display: none; }
 

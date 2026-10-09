@@ -48,6 +48,10 @@ h1, h2, h3, p { margin: 0; }
 a { color: var(--crm-brand); text-decoration: none; }
 a:hover { text-decoration: underline; }
 button, input, select, textarea { font: inherit; color: inherit; }
+/* Phones and tablets zoom into any field whose text is smaller than 16px when it is tapped. */
+@media (pointer: coarse), (hover: none), (max-width: 1024px) {
+  input, select, textarea { font-size: max(16px, 1em) !important; }
+}
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
 :focus-visible { outline: 2px solid var(--crm-brand); outline-offset: 2px; }

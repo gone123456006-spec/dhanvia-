@@ -18,6 +18,7 @@
 
 /* 5. Registration process, offer, and form */
 @import './styles/registration.css';
+@import './styles/quick-links.css';
 
 /* 6. Company registration detail page */
 @import './styles/registration-detail.css';
@@ -27,6 +28,10 @@
 
 /* 7b. Mutual funds, loans and insurance cards */
 @import './styles/featured-services.css';
+
+/* 7c. Services page (/services) */
+@import './styles/service-directory.css';
+@import './styles/enquiry-modal.css';
 
 /* 8. Client testimonials */
 @import './styles/testimonials.css';
@@ -39,6 +44,7 @@
 
 /* 9. Footer */
 @import './styles/footer.css';
+@import './styles/floating-contact.css';
 
 /* 10. Intro splash, entrance and scroll animations */
 @import './styles/motion.css';

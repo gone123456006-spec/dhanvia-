@@ -34,12 +34,14 @@ const socialAccountSchema = new Schema(
     instagram: { type: String, trim: true, maxlength: 500, default: '' },
     facebook: { type: String, trim: true, maxlength: 500, default: '' },
     youtube: { type: String, trim: true, maxlength: 500, default: '' },
+    linkedin: { type: String, trim: true, maxlength: 500, default: '' },
+    twitter: { type: String, trim: true, maxlength: 500, default: '' },
   },
   { _id: true },
 )
 
 const defaultSocialAccounts = () => [
-  { name: 'Dhanvia', instagram: '', facebook: '', youtube: '' },
+  { name: 'Dhanvia', instagram: '', facebook: '', youtube: '', linkedin: '', twitter: '' },
   {
     name: 'Pranav Coaching Class',
     instagram: 'https://www.instagram.com/pranavcoachingclass',

@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-export type SocialNetwork = 'instagram' | 'facebook' | 'youtube'
+export type SocialNetwork = 'instagram' | 'facebook' | 'youtube' | 'linkedin' | 'twitter'
 
 function InstagramIcon({ size }: { size: number }) {
   const id = useId()
@@ -41,8 +41,28 @@ function YouTubeIcon({ size }: { size: number }) {
   )
 }
 
+function LinkedInIcon({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect width="24" height="24" rx="5" fill="#0a66c2" />
+      <path fill="#fff" d="M7.1 9.6h2.5V18H7.1zM8.35 5.6a1.45 1.45 0 1 1 0 2.9 1.45 1.45 0 0 1 0-2.9ZM11.2 9.6h2.4v1.15h.04c.33-.63 1.15-1.3 2.37-1.3 2.54 0 3 1.67 3 3.84V18h-2.5v-4.2c0-1-.02-2.29-1.4-2.29-1.4 0-1.6 1.09-1.6 2.22V18h-2.5z" />
+    </svg>
+  )
+}
+
+function XIcon({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect width="24" height="24" rx="5" fill="#000" />
+      <path fill="#fff" d="M13.2 11.1 17.6 6h-1.05l-3.82 4.43L9.68 6H6.15l4.6 6.7L6.15 18h1.04l4.03-4.68L14.44 18h3.53l-4.77-6.9Zm-1.43 1.65-.47-.67-3.7-5.3h1.6l3 4.29.46.67 3.9 5.58h-1.6l-3.19-4.57Z" />
+    </svg>
+  )
+}
+
 export function SocialIcon({ network, size = 20 }: { network: SocialNetwork; size?: number }) {
   if (network === 'instagram') return <InstagramIcon size={size} />
   if (network === 'facebook') return <FacebookIcon size={size} />
+  if (network === 'linkedin') return <LinkedInIcon size={size} />
+  if (network === 'twitter') return <XIcon size={size} />
   return <YouTubeIcon size={size} />
 }
