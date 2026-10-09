@@ -22,14 +22,6 @@ function NavigationIcon({ name }: { name: NavigationIconName }) {
   )
 }
 
-/** Shown as an always-visible row on tablets and phones, where the full menu sits behind the ☰ button. */
-const quickNavLinks = [
-  { label: 'Home', href: '/' },
-  ...serviceMegaMenus.map(({ label }) => ({ label, href: `/services#${label.toLowerCase()}` })),
-  { label: 'Services', href: '/services' },
-  { label: 'Contact Us', href: '/contact' },
-]
-
 interface SiteHeaderProps {
   onSelectService: (service: string, menu: string, category: string) => void
   isContactPage: boolean
@@ -42,7 +34,6 @@ interface SiteHeaderProps {
  */
 export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const currentPath = window.location.pathname.replace(/(.)\/$/, '$1')
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const registrationMenuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [activeCategories, setActiveCategories] = useState<Record<string, string>>(() =>
@@ -186,12 +177,6 @@ export function SiteHeader({ onSelectService, isContactPage, isRegistrationPage 
           </a>
         </div>
       </div>
-
-      <nav className="header-quick-nav" aria-label="Quick navigation">
-        {quickNavLinks.map(({ label, href }) => (
-          <a href={href} aria-current={href === currentPath ? 'page' : undefined} key={label}>{label}</a>
-        ))}
-      </nav>
     </header>
   )
 }
