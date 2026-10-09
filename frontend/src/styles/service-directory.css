@@ -140,10 +140,6 @@
 
 .service-directory-group { scroll-margin-top: 96px; }
 
-@media (max-width: 850px) {
-  .service-directory-group { scroll-margin-top: 124px; }
-}
-
 .service-directory-group-heading {
   display: flex;
   flex-wrap: wrap;
